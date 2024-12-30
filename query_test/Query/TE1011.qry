@@ -1,0 +1,21 @@
+{
+	"name": "TE1011",
+	"desc": "공지사항 추가",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["제목","notice_title","","","varchar",256,"0"],
+				["본문","notice_content","","","varchar",1024,"0"],
+				["구분","notice_type","","","char",1,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["성공여부","success_status","","","char",1,"0"]
+			]
+		}
+	}
+}

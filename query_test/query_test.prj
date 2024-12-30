@@ -187,6 +187,27 @@
             "relType": 1,
             "path": "Query\\",
             "comment": "공지사항 선택 조회"
+          },
+          {
+            "type": 8,
+            "name": "TE1011.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "공지사항 추가"
+          },
+          {
+            "type": 8,
+            "name": "TE1012.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "공지사항 수정"
+          },
+          {
+            "type": 8,
+            "name": "TE1013.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "공지사항 삭제"
           }
         ]
       },

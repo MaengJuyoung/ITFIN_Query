@@ -1,0 +1,19 @@
+{
+	"name": "TE1013",
+	"desc": "공지사항 삭제",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["index","notice_id","","","int",11,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["성공여부","success_status","","","char",1,"0"]
+			]
+		}
+	}
+}
