@@ -1,0 +1,22 @@
+{
+	"name": "TE0000",
+	"desc": "로그인",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["아이디","user_id","","","varchar","32","0"],
+				["비밀번호","user_pw","","","varchar  ","64","0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["아이디","user_id","","","varchar","32","0"],
+				["이름","user_name","","","varchar","32","0"],
+				["성공여부","success_status","","","char","1","0"]
+			]
+		}
+	}
+}

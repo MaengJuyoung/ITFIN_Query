@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>QUERY</title>
+    <!-- Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- //Noto Sans KR -->
+    <!-- crypto-js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- //crypto-js -->
+    <!-- ck-editor5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+    <!-- //ck-editor5 -->
+
+	
+	<link rel="stylesheet" href="Framework/afc/style/afc.css"/>
+	<link rel="stylesheet" href="Framework/afc/style/comp.css"/>
+	<link rel="stylesheet" href="Framework/afc/style/basicStyle.css"/>
+	<link rel="stylesheet" href="Framework/afc/style/jquery-ui.css"/>
+	<link rel="stylesheet" href="Framework/mdfc/style/comp.css"/>
+	<link rel="stylesheet" href="Framework/mdfc/style/black.css"/>
+
+	<link rel="stylesheet" href="Template/query_testApp_global.css"/>
+	<link rel="stylesheet" href="Template/Container/Nav.css"/>
+
+
+
+	
+	<script>
+	//Electron 과 추가 라이브러리(예, jQuery 등) 와의 충돌 방지
+    //시뮬레이터에서 사용
+	window.nodeRequire = window.require;
+	delete window.require;
+	delete window.exports;
+    delete window.module;
+
+    var theApp = null;
+    var PROJECT_OPTION = {
+    "build": {
+        "bridgeName": "none",
+        "frwLoadOption": "inTimeLoad",
+        "subName": ""
+    },
+    "general": {
+        "autoScale": false,
+        "phoneDocWidth": 0,
+        "tabletDocWidth": 0,
+        "queryFormat": "qry",
+        "scaleVal": 1,
+        "userScalable": false,
+        "responsiveTest": "",
+        "tabletMinWidth": 500,
+        "flavor": "common"
+    },
+    "deployment": {
+        "checkVersion": false
+    },
+    "unitUrl": ""
+};
+    
+    document.addEventListener("DOMContentLoaded", () => 
+    {
+		afc.import("Source/query_testApp.js");
+
+        afc.scriptReady(() =>
+        {
+            if(window._version) _version.setFileVersion();
+            
+            window.theApp = new window["query_testApp"]();
+            window.theApp.isLoadTheme = false;
+            
+            if(PROJECT_OPTION.unitUrl) window.theApp.unitTest(PROJECT_OPTION.unitUrl);
+            else window.theApp.onReady();
+        });
+    });
+    </script>
+
+	<script defer src="lib.js"></script>
+
+
+
+
+		
+	</head>
+	<body class="_global_style_ global_resp">
+	</body>
+</html>
