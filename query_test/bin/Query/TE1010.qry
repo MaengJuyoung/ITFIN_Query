@@ -1,0 +1,23 @@
+{
+	"name": "TE1010",
+	"desc": "공지사항 선택 조회",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["index","notice_id","","","int",11,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["index","notice_id","","","int",11,"0"],
+				["제목","notice_title","","","varchar",256,"0"],
+				["본문","notice_content","","","varchar",1024,"0"],
+				["구분","notice_type","","","char",1,"0"],
+				["파일경로","notice_file","","","varchar",256,"0"]
+			]
+		}
+	}
+}

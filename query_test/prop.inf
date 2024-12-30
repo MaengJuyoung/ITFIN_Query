@@ -15,7 +15,8 @@
     "flavor": "common",
     "isPort": true,
     "scaleValue": 100,
-    "responsiveTest": ""
+    "responsiveTest": "",
+    "localizing": ""
   },
   "build": {
     "bridgeName": "none",
@@ -39,7 +40,7 @@
   },
   "deployment": {
     "upload": {
-      "idx": null,
+      "idx": 0,
       "list": []
     },
     "checkVersion": false
