@@ -117,35 +117,45 @@ TE1000 = class TE1000 extends AView
     }
 
     // 데이터 로드 
-    loadNoticeGrid()
-    {
-        const thisObj = this;
+loadNoticeGrid()
+{
+    const thisObj = this;
 
-        // 공지사항 데이터 로드
-        theApp.qm.sendProcessByName('TE1010', this.getContainerId(), null,
-            function(queryData) {
-                const outblock1 = queryData.getBlockData('OutBlock1');
-                if (!outblock1 || outblock1.length <= 0) {
-                    console.log('공지사항 데이터가 없습니다.');
-                    return;
-                }
+    // 조회 시작일자와 종료일자, 여기서는 예시로 'start_date'와 'end_date'를 '20240101'로 설정
+    const start_date = '20240101';  // 실제로는 사용자가 입력하거나 동적으로 설정할 수 있습니다.
+    const end_date = '20241231';    // 마찬가지로 동적으로 설정 가능.
 
-                // 그리드 초기화 및 데이터 추가
-                thisObj.grid.clearRow(); // 기존 데이터 삭제
-                outblock1.forEach(item => {
-                    thisObj.grid.addRow({
-                        index: item.notice_id,
-                        제목: item.notice_title,
-                        본문: item.notice_content,
-                        구분: item.notice_type,
-                        파일경로: item.notice_file,
-                    });
-                });
+    // 공지사항 데이터 로드 (TE1000 쿼리 사용)
+    theApp.qm.sendProcessByName('TE1000', this.getContainerId(), {
+        InBlock1: {
+            notice_type: '',   // 구분 (여기서는 예시로 공백으로 설정)
+            start_date: start_date,
+            end_date: end_date
+        }
+    },
+    function(queryData) {
+        const outblock1 = queryData.getBlockData('OutBlock1');
+        if (!outblock1 || outblock1.length <= 0) {
+            console.log('공지사항 데이터가 없습니다.');
+            return;
+        }
 
-                // 가장 큰 index로 초기화
-                thisObj.noticeIndex = outblock1[outblock1.length - 1].notice_id + 1;
-            }
-        );
-    }
+        // 그리드 초기화 및 데이터 추가
+        thisObj.grid.clearRow(); // 기존 데이터 삭제
+        outblock1.forEach(item => {
+            thisObj.grid.addRow({
+                index: item.notice_id,
+                제목: item.notice_title,
+                본문: item.notice_content,
+                구분: item.notice_type,
+                파일경로: item.notice_file,
+            });
+        });
+
+        // 가장 큰 index로 초기화
+        thisObj.noticeIndex = outblock1[outblock1.length - 1].notice_id + 1;
+    });
+}
+
 }
 
