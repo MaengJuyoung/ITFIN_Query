@@ -173,6 +173,20 @@
             "relType": 1,
             "path": "Query/",
             "comment": "회원가입"
+          },
+          {
+            "type": 8,
+            "name": "TE1000.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "공지사항 조회"
+          },
+          {
+            "type": 8,
+            "name": "TE1010.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "공지사항 선택 조회"
           }
         ]
       },
