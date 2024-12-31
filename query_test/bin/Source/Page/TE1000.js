@@ -55,7 +55,7 @@ TE1000 = class TE1000 extends AView
         }
     }
 
-    // 현재 날짜 또는 캘린더에서 받은 날짜를 yyyyMMdd 형식으로 변환하는 함수
+    // 날짜를 yyyyMMdd 형식으로 변환하는 함수
     formatToYYYYMMDD(date) {
         // 만약 date가 Date 객체라면 (현재 날짜일 경우)
         if (date instanceof Date) {
@@ -75,10 +75,25 @@ TE1000 = class TE1000 extends AView
         return '';
     }
 
-    // 그리드에 공지사항 데이터 로드하는 함수 
+    // 공지사항 조회 버튼 클릭 시 
+	onNoticeSelectBtnClick(comp, info, e)
+	{
+        this.loadNoticeGrid();
+	}
+
+    // 공지사항 다음 버튼 클릭 시 
+	onContiKeyClick(comp, info, e)
+	{
+         this.loadNoticeGrid(this.contiKey-29);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
+	}
+
+    // 공지사항 조회 시 - TE1000
     loadNoticeGrid(contiKey = '') {
         const thisObj = this;
-        thisObj.setNoticeContent();
+        thisObj.noticeId.setText('');       // ID 초기화
+        thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
+        thisObj.noticeTitle.setText('');    // 제목 초기화
+        thisObj.noticeType.selectItem(0);   // 구분 초기화
 
         // 조회 시작일자와 마감일자 설정
         const startDate = thisObj.formatToYYYYMMDD(thisObj.startDate.getDate()); 
@@ -142,7 +157,7 @@ TE1000 = class TE1000 extends AView
         );
     }
 
-    // 공지사항 선택 조회 시
+    // 공지사항 선택 조회 시 - TE1010
     onGridSelect(comp, info, e)
     {
         const thisObj = this;
@@ -173,19 +188,18 @@ TE1000 = class TE1000 extends AView
                 }
 
                 const noticeData = outblock1[0];
+                console.log(noticeData);
 
                 // 조회된 공지사항 데이터를 화면에 표시
-                thisObj.setNoticeContent({
-                    noticeId: noticeData.notice_id,
-                    noticeTitle: noticeData.notice_title,
-                    noticeContent: noticeData.notice_content,
-                    noticeType: noticeData.notice_type,
-                });
+                thisObj.noticeId.setText(noticeData.notice_id); // ID 설정 또는 초기화
+                thisObj.noticeContent.setData(noticeData.notice_content); // 에디터 데이터 설정 또는 초기화
+                thisObj.noticeTitle.setText(noticeData.notice_title); // 제목 설정 또는 초기화
+                thisObj.noticeType.selectItem(noticeData.notice_type); // 구분 설정 또는 초기화
             }
         );
     }
 
-    // 공지사항 등록 버튼 클릭 시 
+    // 공지사항 추가 시 - TE1011
 	onNoticeInsertBtnClick(comp, info, e)
     {
         const thisObj = this;
@@ -234,29 +248,7 @@ TE1000 = class TE1000 extends AView
         );
     }
 
-    // 공지사항 조회 버튼 클릭 시 
-	onNoticeSelectBtnClick(comp, info, e)
-	{
-        this.loadNoticeGrid();
-	}
-
-    // 공지사항 다음 버튼 클릭 시 
-	onContiKeyClick(comp, info, e)
-	{
-         this.loadNoticeGrid(this.contiKey-29);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
-	}
-
-    // 공통 메서드로 데이터 설정 또는 초기화
-    setNoticeContent(data = {}) {
-        const { noticeId = '', noticeTitle = '', noticeContent = '', noticeType = 0 } = data;
-
-        this.noticeId.setText(noticeId); // ID 설정 또는 초기화
-        this.noticeContent.setData(noticeContent); // 에디터 데이터 설정 또는 초기화
-        this.noticeTitle.setText(noticeTitle); // 제목 설정 또는 초기화
-        this.noticeType.selectItem(noticeType); // 구분 설정 또는 초기화
-    }
-
-    // 공지사항 수정 버튼 클릭 시
+    // 공지사항 수정 시 - TE1012
     onNoticeUpdateBtnClick(comp, info, e) {
         const thisObj = this;
 
@@ -308,7 +300,7 @@ TE1000 = class TE1000 extends AView
         );
     }
 
-    // 공지사항 삭제 버튼 클릭 시 
+    // 공지사항 삭제 시 - TE1013
 	onNoticeDeleteBtnClick(comp, info, e)
 	{
         const thisObj = this;
