@@ -96,10 +96,7 @@ TE1000 = class TE1000 extends AView
         };
 
         // 쿼리 전송
-        theApp.qm.sendProcessByName(
-            'TE1000',
-            this.getContainerId(),
-            null,
+        theApp.qm.sendProcessByName('TE1000', this.getContainerId(), null,
             function (queryData) {
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
                 inblock1.notice_type = noticeType;
@@ -141,6 +138,49 @@ TE1000 = class TE1000 extends AView
 
                 // next_key 저장 (필요 시 버튼 등에 사용)
                 thisObj.contiKey = outblock1[0].next_key;
+            }
+        );
+    }
+
+    // 공지사항 선택 조회 시
+    onGridSelect(comp, info, e)
+    {
+        const thisObj = this;
+        const index = thisObj.grid.getRowIndexByInfo(info);
+        if (index == -1) return;
+
+        const data = thisObj.grid.getDataByOption(info);
+        const noticeId = data[0];
+
+        // 쿼리 전송
+        theApp.qm.sendProcessByName('TE1010', this.getContainerId(), null,
+            function(queryData) { // InBlock 설정
+                const inblock1 = queryData.getBlockData('InBlock1')[0];
+                inblock1.notice_id = noticeId;  // 선택된 공지사항 ID 전송
+            },
+            function(queryData) { // OutBlock 처리
+                const errorData = this.getLastError();
+                if (errorData.errFlag === 'E') {
+                    console.log('Error Data:', errorData);
+                    AToast.show('공지사항 조회 중 에러가 발생했습니다.');
+                    return;
+                }
+
+                const outblock1 = queryData.getBlockData('OutBlock1');
+                if (!outblock1 || outblock1.length <= 0) {
+                    AToast.show('조회된 데이터가 없습니다.');
+                    return;
+                }
+
+                const noticeData = outblock1[0];
+
+                // 조회된 공지사항 데이터를 화면에 표시
+                thisObj.setNoticeContent({
+                    noticeId: noticeData.notice_id,
+                    noticeTitle: noticeData.notice_title,
+                    noticeContent: noticeData.notice_content,
+                    noticeType: noticeData.notice_type,
+                });
             }
         );
     }
@@ -204,33 +244,6 @@ TE1000 = class TE1000 extends AView
 	onContiKeyClick(comp, info, e)
 	{
          this.loadNoticeGrid(this.contiKey-29);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
-	}
-
-    // 공지사항 선택 조회 시
-	onGridSelect(comp, info, e)
-	{
-        const thisObj = this;
-        const index = thisObj.grid.getRowIndexByInfo(info);
-        if (index == -1) return;
-
-        const data = thisObj.grid.getDataByOption(info);        
-
-        // 구분 값 변환 함수
-        const noticeTypeMap = {
-            '공지': 1,
-            '긴급': 2,
-            '뉴스': 3,
-            '시스템': 4,
-        };
-        // 공통 메서드를 이용해 데이터 설정
-        thisObj.setNoticeContent({
-            noticeId: data[0],
-            noticeTitle: data[1],
-            noticeContent: data[2],
-            noticeType: noticeTypeMap[data[3]] || 0,
-        });
-
-
 	}
 
     // 공통 메서드로 데이터 설정 또는 초기화
