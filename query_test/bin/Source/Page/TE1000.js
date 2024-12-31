@@ -4,7 +4,7 @@ TE1000 = class TE1000 extends AView
 	{
 		super()
 
-		this.contiKey = '';
+		// this.contiKey = '';
 	}
 
 	init(context, evtListener)
@@ -100,7 +100,12 @@ TE1000 = class TE1000 extends AView
         const endDate = this.formatToYYYYMMDD(this.endDate.getDate());     
 
         // 구분 기본값 설정
-        const noticeType = 0; // 전체 조회
+        const noticeType = this.radioGroup.getSelectIndex(); // 전체 조회
+
+        console.log("startDate",startDate)
+        console.log("endDate",endDate)
+        console.log("noticeType",noticeType)
+
 
         // 쿼리 전송
         theApp.qm.sendProcessByName(
@@ -137,7 +142,7 @@ TE1000 = class TE1000 extends AView
 
                 // next_key 저장 (필요 시 버튼 등에 사용)
                 if (outblock1[0].next_key) {
-                    thisObj.contiKey = outblock1[0].next_key;
+                    thisObj.contiKey.setData(outblock1[0].next_key);
                 }
             }
         );
@@ -165,6 +170,7 @@ TE1000 = class TE1000 extends AView
         });
     }
 
+    // 공지사항 등록 버튼 클릭 시 
 	onNoticeInsertBtnClick(comp, info, e)
     {
         const thisObj = this;
@@ -215,5 +221,28 @@ TE1000 = class TE1000 extends AView
             }
         );
     }
+
+    // 공지사항 조회 버튼 클릭 시 
+	onNoticeSelectBtnClick(comp, info, e)
+	{
+        this.loadNoticeGrid();
+	}
+
+	onContiKeyClick(comp, info, e)
+	{
+
+		console.log("this.contiKey",this.contiKey.getData)
+
+	}
+
+    // 공지사항 선택 조회 시 
+	onGridSelect(comp, info, e)
+	{
+        const index = this.grid.getRowIndexByInfo(info);
+        
+
+        if (index == -1) return;
+        console.log('index',index);
+	}
 }
 
