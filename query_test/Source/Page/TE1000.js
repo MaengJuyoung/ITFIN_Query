@@ -1,4 +1,3 @@
-
 TE1000 = class TE1000 extends AView
 {
 	constructor()
@@ -13,7 +12,12 @@ TE1000 = class TE1000 extends AView
 		super.init(context, evtListener)
 
 		this.createCkEditor(this.noticeContent.element);
+
+        const today = new Date();
+        this.startDate.setDate(this.formatToYYYYMMDD(today));
+        this.endDate.setDate(this.formatToYYYYMMDD(today));
 	}
+
 
 	onInitDone()
 	{
@@ -49,6 +53,116 @@ TE1000 = class TE1000 extends AView
                 return new UploadAdapter(loader, `${config.SERVER_ADDRESS}:${config.SERVER_PORT}/upload`);
             };
         }
+    }
+    // 현재 날짜를 yyyyMMdd 형식으로 변환하는 함수
+    todayFormatDate(date) {
+        const yyyy = date.getFullYear(); // 년
+        const mm = (date.getMonth() + 1).toString().padStart(2, '0'); // 월 (0부터 시작하므로 +1)
+        const dd = date.getDate().toString().padStart(2, '0'); // 일
+
+        return `${yyyy}${mm}${dd}`; // yyyyMMdd 형식으로 반환
+    }
+
+    // calendarPicker를 yyyymmdd 형식으로 변환하는 함수
+    formatDate(date) {
+        const yyyy = date.year;
+        const mm = date.month;
+        const dd = date.day;
+        return `${yyyy}${mm}${dd}`; // yyyyMMdd 형식으로 반환
+    }
+
+    // 현재 날짜 또는 캘린더에서 받은 날짜를 yyyyMMdd 형식으로 변환하는 함수
+    formatToYYYYMMDD(date) {
+        // 만약 date가 Date 객체라면 (현재 날짜일 경우)
+        if (date instanceof Date) {
+            const yyyy = date.getFullYear();
+            const mm = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1
+            const dd = date.getDate().toString().padStart(2, '0');
+            return `${yyyy}${mm}${dd}`;
+        }
+        // 만약 date가 {year, month, day} 형식일 경우 (캘린더 픽커에서 받은 데이터)
+        else if (date.year && date.month && date.day) {
+            const yyyy = date.year;
+            const mm = (date.month).toString().padStart(2, '0'); // 월은 1부터 시작
+            const dd = (date.day).toString().padStart(2, '0');
+            return `${yyyy}${mm}${dd}`;
+        }
+        // 유효하지 않은 데이터가 들어오면 빈 문자열 반환
+        return '';
+    }
+
+
+    loadNoticeGrid() {
+        const thisObj = this;
+
+        // 조회 시작일자와 마감일자 설정
+        const startDate = this.formatToYYYYMMDD(this.startDate.getDate()); 
+        const endDate = this.formatToYYYYMMDD(this.endDate.getDate());     
+
+        // 구분 기본값 설정
+        const noticeType = 0; // 전체 조회
+
+        // 쿼리 전송
+        theApp.qm.sendProcessByName(
+            'TE1000',
+            this.getContainerId(),
+            null,
+            function (queryData) {
+                const inblock1 = queryData.getBlockData('InBlock1')[0];
+                inblock1.notice_type = noticeType;
+                inblock1.start_date = startDate;
+                inblock1.end_date = endDate;
+            },
+            function (queryData) {
+                const errorData = this.getLastError();
+                if (errorData.errFlag === 'E') {
+                    console.log('Error Data:', errorData);
+                    AToast.show('공지사항 조회 중 에러가 발생했습니다.');
+                    return;
+                }
+
+                const outblock1 = queryData.getBlockData('OutBlock1');
+                if (!outblock1 || outblock1.length <= 0) {
+                    AToast.show('조회된 데이터가 없습니다.');
+                    return;
+                }
+                console.log("글 조회:", outblock1);
+                
+                // 날짜 변환 및 그리드 추가
+                const formattedData = outblock1.map(item => ({
+                    ...item,
+                    notice_date: (item.notice_date).replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'), // 날짜 변환
+                }));
+                thisObj.addGrid(formattedData);
+
+                // next_key 저장 (필요 시 버튼 등에 사용)
+                if (outblock1[0].next_key) {
+                    thisObj.contiKey = outblock1[0].next_key;
+                }
+            }
+        );
+    }
+
+    addGrid(data) {
+        this.grid.removeAll();      // 그리드 초기화
+        // 최신순 정렬
+        data.sort((a, b) => b.notice_date.localeCompare(a.notice_date));    
+        // 구분 값 변환 함수
+        const noticeTypeMap = {
+            '1': '공지',
+            '2': '긴급',
+            '3': '뉴스',
+            '4': '시스템',
+        };
+        data.forEach((item) => {    // 그리드에 데이터 추가
+            this.grid.addRow([
+                item.notice_id,
+                item.notice_title,
+                item.notice_content,
+                noticeTypeMap[item.notice_type] || '기타', // 변환되지 않은 값은 '기타'로 설정
+                item.notice_date,  
+            ]);
+        });
     }
 
 	onNoticeInsertBtnClick(comp, info, e)
@@ -86,7 +200,7 @@ TE1000 = class TE1000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-                console.log("Full OutBlock1 Data:", outblock1);
+                console.log("글 등록:", outblock1);
                 if (outblock1[0].success_status !== 'Y') {
                     AToast.show('공지사항 저장에 실패했습니다.');
                     return;
@@ -97,65 +211,9 @@ TE1000 = class TE1000 extends AView
                 thisObj.noticeContent.setData(''); // 에디터 내용 초기화
                 thisObj.noticeTitle.setText('');  // 제목 입력 필드 초기화
                 thisObj.noticeType.selectItem(0);   // 구분 입력 필드 초기화
+                thisObj.loadNoticeGrid();
             }
         );
     }
-
-    // 그리드에 내용 추가
-    addNoticeToGrid(title, content, type)
-    {
-        const grid = this.grid; // 그리드 객체 참조
-        const newRow = {
-            index: this.noticeIndex++, // index 증가
-            제목: title,
-            본문: content,
-            구분: type,
-            파일경로: '', // 파일 경로는 현재 비워둠
-        };
-
-        grid.insertRow(0, newRow); // 맨 위에 추가
-    }
-
-    // 데이터 로드 
-loadNoticeGrid()
-{
-    const thisObj = this;
-
-    // 조회 시작일자와 종료일자, 여기서는 예시로 'start_date'와 'end_date'를 '20240101'로 설정
-    const start_date = '20240101';  // 실제로는 사용자가 입력하거나 동적으로 설정할 수 있습니다.
-    const end_date = '20241231';    // 마찬가지로 동적으로 설정 가능.
-
-    // 공지사항 데이터 로드 (TE1000 쿼리 사용)
-    theApp.qm.sendProcessByName('TE1000', this.getContainerId(), {
-        InBlock1: {
-            notice_type: '',   // 구분 (여기서는 예시로 공백으로 설정)
-            start_date: start_date,
-            end_date: end_date
-        }
-    },
-    function(queryData) {
-        const outblock1 = queryData.getBlockData('OutBlock1');
-        if (!outblock1 || outblock1.length <= 0) {
-            console.log('공지사항 데이터가 없습니다.');
-            return;
-        }
-
-        // 그리드 초기화 및 데이터 추가
-        thisObj.grid.clearRow(); // 기존 데이터 삭제
-        outblock1.forEach(item => {
-            thisObj.grid.addRow({
-                index: item.notice_id,
-                제목: item.notice_title,
-                본문: item.notice_content,
-                구분: item.notice_type,
-                파일경로: item.notice_file,
-            });
-        });
-
-        // 가장 큰 index로 초기화
-        thisObj.noticeIndex = outblock1[outblock1.length - 1].notice_id + 1;
-    });
-}
-
 }
 

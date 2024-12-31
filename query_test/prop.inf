@@ -1,13 +1,13 @@
 {
   "general": {
-    "autoScale": false,
+    "autoScale": true,
     "userSize": false,
     "phoneDocWidth": 0,
     "tabletDocWidth": 0,
     "queryFormat": "qry",
     "scaleVal": 1,
     "tabletMinWidth": 500,
-    "userScalable": false,
+    "userScalable": true,
     "layBrowserInfo": [
       "640",
       "800"
