@@ -81,11 +81,11 @@ TE1000 = class TE1000 extends AView
         thisObj.setNoticeContent();
 
         // 조회 시작일자와 마감일자 설정
-        const startDate = this.formatToYYYYMMDD(this.startDate.getDate()); 
-        const endDate = this.formatToYYYYMMDD(this.endDate.getDate());     
+        const startDate = thisObj.formatToYYYYMMDD(thisObj.startDate.getDate()); 
+        const endDate = thisObj.formatToYYYYMMDD(thisObj.endDate.getDate());     
 
         // 구분 기본값 설정
-        const noticeType = this.radioGroup.getSelectIndex(); 
+        const noticeType = thisObj.radioGroup.getSelectIndex(); 
 
         // 구분 값 변환 함수
         const noticeTypeMap = {
@@ -118,6 +118,7 @@ TE1000 = class TE1000 extends AView
                 const outblock1 = queryData.getBlockData('OutBlock1');
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
+                    thisObj.grid.removeAll();               // 그리드 초기화
                     return;
                 }
                 
@@ -187,7 +188,7 @@ TE1000 = class TE1000 extends AView
 
                 // 성공 처리
                 AToast.show('공지사항이 성공적으로 저장되었습니다.');
-                
+                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
                 thisObj.loadNoticeGrid();
             }
         );
@@ -288,12 +289,49 @@ TE1000 = class TE1000 extends AView
 
                 // 성공 처리
                 AToast.show('공지사항이 성공적으로 수정되었습니다.');
-                
-                // 수정 후 그리드 다시 로드
+                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
                 thisObj.loadNoticeGrid();
             }
         );
     }
 
+    // 공지사항 삭제 버튼 클릭 시 
+	onNoticeDeleteBtnClick(comp, info, e)
+	{
+        const thisObj = this;
+
+        const noticeId = this.noticeId.getText(); // ID 필드 값
+        // 쿼리 전송
+        theApp.qm.sendProcessByName('TE1013', this.getContainerId(), null,
+            function(queryData) { // InBlock 설정
+                const inblock1 = queryData.getBlockData('InBlock1')[0];
+                inblock1.notice_id = noticeId;
+            },
+            function(queryData) { // OutBlock 처리
+                const errorData = this.getLastError();
+                if (errorData.errFlag === "E") {
+                    console.log("Error Data:", errorData);
+                    AToast.show('공지사항 삭제 중 에러가 발생했습니다.');
+                    return;
+                }
+
+                const outblock1 = queryData.getBlockData('OutBlock1');
+                if (!outblock1 || outblock1.length <= 0) {
+                    AToast.show('삭제된 데이터가 없습니다.');
+                    return;
+                }
+
+                if (outblock1[0].success_status !== 'Y') {
+                    AToast.show('공지사항 삭제에 실패했습니다.');
+                    return;
+                }
+
+                // 성공 처리
+                AToast.show('공지사항이 성공적으로 삭제되었습니다.');
+                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
+                thisObj.loadNoticeGrid();
+            }
+        );
+	}
 }
 
