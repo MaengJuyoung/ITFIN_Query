@@ -1,5 +1,5 @@
-<div data-base="AView" data-class="TE1000" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(233, 236, 239);" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ARadioGroup&quot;,&quot;ARadioButton&quot;,&quot;ALabel&quot;,&quot;ATextField&quot;,&quot;AButton&quot;,&quot;AGrid&quot;,&quot;ASelectBox&quot;],&quot;mdfc&quot;:[&quot;ACalendarPicker&quot;]}" data-browser-width="1650" data-max-abutton="1" data-browser-height="980"
-    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; left: 0px; background-color: rgb(175, 200, 255); padding: 10px 0px 10px 5px;" id="TE1000--header"
+<div data-base="AView" data-class="TE1000" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(233, 236, 239); min-width: 1050px; position: relative; overflow: visible;" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ARadioGroup&quot;,&quot;ARadioButton&quot;,&quot;ALabel&quot;,&quot;ATextField&quot;,&quot;AButton&quot;,&quot;AGrid&quot;,&quot;ASelectBox&quot;],&quot;mdfc&quot;:[&quot;ACalendarPicker&quot;]}" data-browser-width="1590" data-max-abutton="1" data-browser-height="1050"
+    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; left: 0px; background-color: rgb(175, 200, 255); padding: 10px 0px 10px 5px; overflow: visible;" id="TE1000--header"
         ><div data-base="ARadioGroup" data-class="ARadioGroup" class="ARadioGroup-Style" style="height: 30px; position: relative; padding-left: 5px; width: 370px; background-color: rgba(130, 170, 255, 0.5); border-color: rgba(0, 0, 0, 0); left: 0px; border-radius: 10px;     float: left;" data-default-select="noticeType0" id="TE1000--radioGroup"
             ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style radiobtn_check" tabindex="0" style="width: 70px; height: 100%; position: relative; float: left; line-height: 30px;" data-radio-value="0" id="TE1000--noticeType0">전체</span
             ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: 70px; height: 100%; position: relative; float: left; line-height: 30px;" id="TE1000--noticeType1" data-radio-value="1">공지</span
@@ -28,7 +28,7 @@
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" data-listener-click="TE1000:onNoticeSelectBtnClick">조회</button
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" id="TE1000--contiKey" data-listener-click="TE1000:onContiKeyClick">다음</button
     ></div
-    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: calc((100% - 285px) - 50px); left: 0px; position: absolute; bottom: 285px; visibility: visible;" data-sgap-height="1" data-fullrow-select="true" id="TE1000--grid" data-listener-select="TE1000:onGridSelect"
+    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: calc((100% - 285px) - 50px); left: 0px; position: absolute; bottom: 285px; visibility: visible; overflow: auto;" data-sgap-height="1" data-fullrow-select="true" id="TE1000--grid" data-listener-select="TE1000:onGridSelect"
         ><div class="grid-scroll-area" style=""
             ><table class="grid-header-table" align="center"
                 ><colgroup
@@ -104,27 +104,29 @@
             ></table
         ></div
     ></div
-    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 285px; position: absolute; left: 0px; background-color: rgb(175, 200, 255); bottom: 0px;" id="TE1000--footer"
-        ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 96%; height: 100%; position: relative; float: left; background-color: rgba(0, 0, 0, 0); overflow: hidden;     padding: 0 5px;" id="TE1000--left"
-            ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 40px; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); padding: 5px 0px; top: 0px; display: block;" id="TE1000--left_header"
-                ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 7%; height: 100%; position: relative; top: 0px; float: left;" id="TE1000--noticeType"
-                    ><option value="0">전체</option
-                    ><option value="1">공지</option
-                    ><option value="2">긴급</option
-                    ><option value="3">뉴스</option
-                    ><option value="4">시스템</option
-                ></select
-                ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: left; line-height: 30px; margin-left: 10%;">제목</label
-                ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: left; width: 65%; margin-left: 10px;" id="TE1000--noticeTitle"
-                ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: right; margin-left: 10px; width: 5%;" id="TE1000--noticeId" disabled="disabled"
-                ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: right; line-height: 30px;">일련번호</label
+    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 285px; position: absolute; left: 0px; background-color: rgb(175, 200, 255); bottom: 0px; overflow: visible;" id="TE1000--footer"
+        ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); left: 0px; display: inline-flex; overflow: visible;" id="TE1000--footer_inner"
+            ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); overflow: visible; padding: 0px 5px; float: left; left: 0px;" id="TE1000--left"
+                ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 40px; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); padding: 5px 0px; top: 0px; display: block; overflow: visible;" id="TE1000--left_header"
+                    ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 100px; height: 100%; position: relative; top: 0px; float: left;" id="TE1000--noticeType"
+                        ><option value="0">전체</option
+                        ><option value="1">공지</option
+                        ><option value="2">긴급</option
+                        ><option value="3">뉴스</option
+                        ><option value="4">시스템</option
+                    ></select
+                    ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: left; line-height: 30px; margin-left: 5%;">제목</label
+                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: left; margin-left: 10px; width: 60%;" id="TE1000--noticeTitle" data-sgap-width="2"
+                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: right; margin-left: 10px; width: 70px;" id="TE1000--noticeId" disabled="disabled"
+                    ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: right; line-height: 30px;">일련번호</label
+                ></div
+                ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 240px; position: relative; background-color: rgb(255, 255, 255); left: 0px; top: 0px; padding-bottom: 5px;" id="TE1000--noticeContent"></div
             ></div
-            ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 240px; position: relative; background-color: rgb(255, 255, 255); left: 0px; top: 0px; padding-bottom: 5px;" id="TE1000--noticeContent"></div
-        ></div
-        ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 4%; height: 100%; position: relative; float: right; background-color: rgba(0, 0, 0, 0); padding-top: 0px; padding-right: 5px; padding-bottom: 0px; top: 0px;" id="TE1000--right"
-            ><button data-base="AButton" data-class="AButton" class="추가" style="width: 100%; height: 30px; position: relative; left: 0px; margin-top: 5px;" data-listener-click="TE1000:onNoticeInsertBtnClick">추가</button
-            ><button data-base="AButton" data-class="AButton" class="ㅅ" style="width: 100%; height: 30px; position: relative; margin-top: 5px;">수정</button
-            ><button data-base="AButton" data-class="AButton" class="추가" style="width: 100%; height: 30px; position: relative; margin-top: 5px;">삭제</button
+            ><div data-base="AView" data-class="AView" class="AView-Style" style="height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); padding-right: 5px; width: 65px; min-width: 65px; float: left; overflow: visible;" id="TE1000--right"
+                ><button data-base="AButton" data-class="AButton" class="추가" style="width: 60px; height: 30px; position: relative; left: 0px; margin-top: 5px;" data-listener-click="TE1000:onNoticeInsertBtnClick">추가</button
+                ><button data-base="AButton" data-class="AButton" class="ㅅ" style="width: 60px; height: 30px; position: relative; margin-top: 5px;">수정</button
+                ><button data-base="AButton" data-class="AButton" class="추가" style="width: 60px; height: 30px; position: relative; margin-top: 5px; left: 0px;">삭제</button
+            ></div
         ></div
     ></div
 ></div>

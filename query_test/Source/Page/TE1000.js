@@ -4,7 +4,7 @@ TE1000 = class TE1000 extends AView
 	{
 		super()
 
-		// this.contiKey = '';
+		this.contiKey = '';
 	}
 
 	init(context, evtListener)
@@ -92,7 +92,7 @@ TE1000 = class TE1000 extends AView
     }
 
 
-    loadNoticeGrid() {
+    loadNoticeGrid(contiKey = '') {
         const thisObj = this;
 
         // 조회 시작일자와 마감일자 설정
@@ -100,12 +100,7 @@ TE1000 = class TE1000 extends AView
         const endDate = this.formatToYYYYMMDD(this.endDate.getDate());     
 
         // 구분 기본값 설정
-        const noticeType = this.radioGroup.getSelectIndex(); // 전체 조회
-
-        console.log("startDate",startDate)
-        console.log("endDate",endDate)
-        console.log("noticeType",noticeType)
-
+        const noticeType = this.radioGroup.getSelectIndex(); 
 
         // 쿼리 전송
         theApp.qm.sendProcessByName(
@@ -117,6 +112,7 @@ TE1000 = class TE1000 extends AView
                 inblock1.notice_type = noticeType;
                 inblock1.start_date = startDate;
                 inblock1.end_date = endDate;
+                inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function (queryData) {
                 const errorData = this.getLastError();
@@ -141,9 +137,8 @@ TE1000 = class TE1000 extends AView
                 thisObj.addGrid(formattedData);
 
                 // next_key 저장 (필요 시 버튼 등에 사용)
-                if (outblock1[0].next_key) {
-                    thisObj.contiKey.setData(outblock1[0].next_key);
-                }
+                thisObj.contiKey = outblock1[0].next_key;
+                console.log("contiKey",thisObj.contiKey);
             }
         );
     }
@@ -228,21 +223,20 @@ TE1000 = class TE1000 extends AView
         this.loadNoticeGrid();
 	}
 
-	onContiKeyClick(comp, info, e)
-	{
-
-		console.log("this.contiKey",this.contiKey.getData)
-
-	}
-
-    // 공지사항 선택 조회 시 
+    // 공지사항 조회 버튼 클릭 시 (공지사항 선택 조회)
 	onGridSelect(comp, info, e)
 	{
         const index = this.grid.getRowIndexByInfo(info);
-        
-
         if (index == -1) return;
+
         console.log('index',index);
+
+	}
+
+    // 공지사항 다음 버튼 클릭 시 
+	onContiKeyClick(comp, info, e)
+	{
+         this.loadNoticeGrid(this.contiKey-29);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
 	}
 }
 
