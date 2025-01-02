@@ -1,0 +1,13 @@
+{
+	"name": "TE2000",
+	"desc": "관리자 조회",
+	"queryType": "api",
+	"input": {},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["관리자 id","user_id","","","varchar",32,"0"]
+			]
+		}
+	}
+}

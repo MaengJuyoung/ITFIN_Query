@@ -1,0 +1,26 @@
+{
+	"name": "TE2010",
+	"desc": "회원 조회",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["관리자 id","user_id","","","varchar",32,"0"],
+				["검색어","search","","","varchar",32,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["관리자 id","user_id","","","varchar",32,"0"],
+				["회원 id","member_id","","","varchar",32,"0"],
+				["회원 이름","member_name","","","varchar",32,"0"],
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["예수금","deposit_amt","","","bigint",20,"0"],
+				["사용여부","used_yn","","","char",1,"0"],
+				["next_key","next_key","","","varchar",128,"0"]
+			]
+		}
+	}
+}
