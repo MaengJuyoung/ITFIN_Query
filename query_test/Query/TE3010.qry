@@ -1,0 +1,26 @@
+{
+	"name": "TE3010",
+	"desc": "로그 조회",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["조회시작일자","start_date","","","varchar",8,"0"],
+				["조회마감일자","end_date","","","varchar",8,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["영업일자","biz_date","","","varchar",8,"0"],
+				["로그시간","biz_time","","","varchar",8,"0"],
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["로그제목","log_title","","","varchar",64,"0"],
+				["로그내용","log_content","","","varchar",256,"0"],
+				["next_key","next_key","","","varchar",128,"0"]
+			]
+		}
+	}
+}

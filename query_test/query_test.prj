@@ -222,6 +222,20 @@
             "relType": 1,
             "path": "Query\\",
             "comment": "관리자 조회"
+          },
+          {
+            "type": 8,
+            "name": "TE3000.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "거래내역 조회"
+          },
+          {
+            "type": 8,
+            "name": "TE3010.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "로그 조회"
           }
         ]
       },

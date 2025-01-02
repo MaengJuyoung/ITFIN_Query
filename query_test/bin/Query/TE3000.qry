@@ -1,0 +1,40 @@
+{
+	"name": "TE3000",
+	"desc": "거래내역 조회",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["신규정정취소구분","ord_action","","","char",1,"0"],
+				["조회시작일자","start_date","","","varchar",8,"0"],
+				["조회마감일자","end_date","","","varchar",8,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["영업일자","biz_date","","","varchar",8,"0"],
+				["주문시간","ord_time","","","varchar",8,"0"],
+				["주문번호","ord_no","","","varchar",16,"0"],
+				["원주문번호","ordno_org","","","varchar",16,"0"],
+				["종목코드","symbol_cd","","","varchar",16,"0"],
+				["매도매수구분","sellbuy_type","","","char",1,"0"],
+				["호가유형","ord_type","","","char",1,"0"],
+				["주문수량","ord_qty","","","int",11,"0"],
+				["주문가","ord_prc","","","int",11,"0"],
+				["체결시간","trd_time","","","cvarcharhar",8,"0"],
+				["체결수량","trd_qty","","","int",11,"0"],
+				["체결가","trd_prc","","","int",11,"0"],
+				["신규정정취소구분","ord_action","","","char",1,"0"],
+				["거부사유","reject_msg","","","varchar",128,"0"],
+				["주문 id","ord_id","","","varchar",32,"0"],
+				["주문 ip","ord_ip","","","varchar",16,"0"],
+				["수수료","cms_fee","","","decimal",16,"0"],
+				["수익금액","book_pnl","","","decimal",16,"0"],
+				["next_key","next_key","","","varchar",128,"0"]
+			]
+		}
+	}
+}
