@@ -211,17 +211,17 @@
           },
           {
             "type": 8,
-            "name": "TE2000.qry",
-            "relType": 1,
-            "path": "Query\\",
-            "comment": "관리자 조회"
-          },
-          {
-            "type": 8,
             "name": "TE2010.qry",
             "relType": 1,
             "path": "Query\\",
             "comment": "회원 조회"
+          },
+          {
+            "type": 8,
+            "name": "TE2000.qry",
+            "relType": 1,
+            "path": "Query\\",
+            "comment": "관리자 조회"
           }
         ]
       },

@@ -2,7 +2,11 @@
 	"name": "TE2000",
 	"desc": "관리자 조회",
 	"queryType": "api",
-	"input": {},
+	"input": {
+		"InBlock1": {
+			"format": []
+		}
+	},
 	"output": {
 		"OutBlock1": {
 			"format": [

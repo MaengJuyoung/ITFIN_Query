@@ -23,7 +23,7 @@ TE2000 = class TE2000 extends AView
 		super.onInitDone()
 
 		//TODO:edit here
-        //this.loadAdminGrid();
+        this.loadAdminGrid();
         this.loadUserGrid();
 	}
 
@@ -39,8 +39,13 @@ TE2000 = class TE2000 extends AView
     loadAdminGrid() {
         const thisObj = this;
         // 쿼리 전송
-        theApp.qm.sendProcessByName('TE2000', this.getContainerId(), {},
+        theApp.qm.sendProcessByName('TE2000', this.getContainerId(), null, 
             function (queryData) {
+                const inblock1 = queryData.getBlockData('InBlock1')[0];
+            },
+            function (queryData) {
+                console.log("queryData=",queryData);
+
                 const errorData = this.getLastError();
                 if (errorData.errFlag === 'E') {
                     console.log('Error Data:', errorData);
@@ -55,13 +60,10 @@ TE2000 = class TE2000 extends AView
                     return;
                 }
 
-                /*
                 // SelectBox에 관리자 ID 추가
                 outblock1.forEach((item) => {
                     thisObj.selectBox.addItem(item.user_id, item.user_id);
                 });
-
-                */
             }
         );
     }
