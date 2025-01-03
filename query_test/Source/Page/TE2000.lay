@@ -1,11 +1,11 @@
 <div data-base="AView" data-class="TE2000" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); overflow: auto; position: relative; min-width: 680px; z-index: 0; backface-visibility: hidden;" data-browser-height="930" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ALabel&quot;,&quot;ASelectBox&quot;,&quot;ATextField&quot;,&quot;AButton&quot;,&quot;AGrid&quot;,&quot;ATabView&quot;],&quot;mdfc&quot;:[&quot;ACalendarPicker&quot;]}" data-browser-width="1900"
     ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; background-color: rgb(175, 200, 255); padding: 10px 5px; display: inline-flex; min-width: 1280px;" id="TE2000--header"
         ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; line-height: 30px;">담당자</label
-        ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 140px; height: 30px; position: relative; margin-left: 10px;" id="TE2000--selectBox"
+        ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 140px; height: 30px; position: relative; margin-left: 10px; margin-top: 0px;" id="TE2000--selectBox" data-blocks-te2010="InBlock1,user_id," data-query-name="TE2010|TE2000" data-blocks-te2000="OutBlock1,,user_id"
             ><option value="0">********</option
         ></select
         ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; line-height: 30px; margin-left: 20px;">회원명(ID, 이름)</label
-        ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; margin-left: 10px; width: 200px;" id="TE2000--search"
+        ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; margin-left: 10px; width: 200px;" id="TE2000--search" data-blocks-te2010="InBlock1,search" data-query-name="TE2010"
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" data-listener-click="TE2000:onInsertBtnClick">조회</button
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" id="TE2000--contiKey" data-listener-click="TE1000:onContiKeyClick">다음</button
         ><div data-base="ACalendarPicker" data-class="ACalendarPicker" class="ACalendarPicker-Style" style="position: relative; width: 130px; height: 30px; margin-left: 10px;" id="TE2000--startDate" data-blocks-te3000="InBlock1,start_date" data-query-name="TE3000|TE3010|TE3020|TE3030" data-blocks-te3010="InBlock1,start_date" data-blocks-te3020="InBlock1,start_date" data-blocks-te3030="InBlock1,start_date"
@@ -28,7 +28,7 @@
     ></div
     ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: calc((100% - 0px) - 50px); position: absolute; left: 0px; background-color: rgba(0, 0, 0, 0); bottom: 0px; min-width: 1000px; display: flex;" id="TE2000--container" data-sgap-height="1"
         ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 600px; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); top: 0px;"
-            ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: 100%; position: relative; left: 0px; top: 0px; visibility: visible; margin-left: 0px;" data-listener-select="TE2000:onGridSelect" data-query-name="TE3000" id="TE2000--grid" data-fullrow-select="true"
+            ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: 100%; position: relative; left: 0px; top: 0px; visibility: visible; margin-left: 0px;" data-listener-select="TE2000:onGridSelect" data-query-name="TE2010" id="TE2000--grid" data-fullrow-select="true" data-blocks-te2010="OutBlock1,user_id,member_id,member_name,acnt_cd,deposit_amt,used_yn"
                 ><div class="grid-scroll-area" style=""
                     ><table class="grid-header-table" align="center"
                         ><colgroup
@@ -39,7 +39,7 @@
                             ><col width="145"
                             ><col width="65"
                         ></colgroup
-                        ><thead align="center" class="head-prop" style=""
+                        ><thead align="center" class="head-prop" style="display: table-header-group;"
                             ><tr height="30" style="background-color: rgb(130, 170, 255);"
                                 ><td class="" style="">관리자 ID</td
                                 ><td class="" style="">회원 ID</td

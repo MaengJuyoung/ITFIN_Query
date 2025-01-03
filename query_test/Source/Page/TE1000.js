@@ -14,8 +14,8 @@ TE1000 = class TE1000 extends AView
 		this.createCkEditor(this.noticeContent.element);
 
         const today = new Date();
-        this.startDate.setDate(this.formatToYYYYMMDD(today));
-        this.endDate.setDate(this.formatToYYYYMMDD(today));
+        const startDate = new Date(today.setMonth(today.getMonth() - 1)); // 한 달 전 날짜 계산
+        this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
 	}
 
 
@@ -30,10 +30,7 @@ TE1000 = class TE1000 extends AView
 
 	onActiveDone(isFirst)
 	{
-		super.onActiveDone(isFirst)
-
-		//TODO:edit here
-
+		super.onActiveDone(isFirst);
 	}
 
     createCkEditor(target)
@@ -55,26 +52,6 @@ TE1000 = class TE1000 extends AView
         }
     }
 
-    // 날짜를 yyyyMMdd 형식으로 변환하는 함수
-    formatToYYYYMMDD(date) {
-        // 만약 date가 Date 객체라면 (현재 날짜일 경우)
-        if (date instanceof Date) {
-            const yyyy = date.getFullYear();
-            const mm = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1
-            const dd = date.getDate().toString().padStart(2, '0');
-            return `${yyyy}${mm}${dd}`;
-        }
-        // 만약 date가 {year, month, day} 형식일 경우 (캘린더 픽커에서 받은 데이터)
-        else if (date.year && date.month && date.day) {
-            const yyyy = date.year;
-            const mm = (date.month).toString().padStart(2, '0'); // 월은 1부터 시작
-            const dd = (date.day).toString().padStart(2, '0');
-            return `${yyyy}${mm}${dd}`;
-        }
-        // 유효하지 않은 데이터가 들어오면 빈 문자열 반환
-        return '';
-    }
-
     // 공지사항 조회 버튼 클릭 시 
 	onNoticeSelectBtnClick(comp, info, e)
 	{
@@ -90,7 +67,11 @@ TE1000 = class TE1000 extends AView
     // 공지사항 조회 시 - TE1000
     loadNoticeGrid(contiKey = '') {
         const thisObj = this;
-        
+        thisObj.noticeId.setText('');       // ID 초기화
+        thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
+        thisObj.noticeTitle.setText('');    // 제목 초기화
+        thisObj.noticeType.selectItem(0);   // 구분 초기화
+
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1000', this.getContainerId(), null,
             function (queryData) {
@@ -125,7 +106,6 @@ TE1000 = class TE1000 extends AView
                     item.notice_type = noticeTypeMap[item.notice_type];                                 // 구분 변환
                 });
 
-                console.log("outblock1",outblock1)
                 thisObj.contiKey = outblock1[0].next_key;
             }
         );
@@ -162,7 +142,6 @@ TE1000 = class TE1000 extends AView
                 }
 
                 const noticeData = outblock1[0];
-                console.log(noticeData);
 
                 // 조회된 공지사항 데이터를 화면에 표시
                 thisObj.noticeId.setText(noticeData.notice_id); // ID 설정 또는 초기화
