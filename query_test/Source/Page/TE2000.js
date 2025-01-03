@@ -34,6 +34,9 @@ TE2000 = class TE2000 extends AView
 	onActiveDone(isFirst)
 	{
 		super.onActiveDone(isFirst);
+        
+        var tabData = this.getTabData();
+        console.log("tabData",tabData)
 	}
 
     // 관리자 조회 시 - TE2000
@@ -128,7 +131,7 @@ TE2000 = class TE2000 extends AView
         console.log("이전에 선택한 탭=",tabId2);
         
 
-        if (thisObj.tab.getLastSelectedTabId() == tabId) return;    // 이전에 선택한 탭이면 데이터 추가 안하고 return -> 다른거 눌럿다가 누르면 추가됨 젠장~
+        // if (thisObj.tab.getLastSelectedTabId() == tabId) return;    // 이전에 선택한 탭이면 데이터 추가 안하고 return -> 다른거 눌럿다가 누르면 추가됨 젠장~
         
         // const thisTab = thisObj.tab.getTabById(tabId);
         // // thisObj.tab.clearTabContent(thisTab);

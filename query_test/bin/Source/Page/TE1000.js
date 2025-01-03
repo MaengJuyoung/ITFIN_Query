@@ -61,7 +61,7 @@ TE1000 = class TE1000 extends AView
     // 공지사항 다음 버튼 클릭 시 
 	onContiKeyClick(comp, info, e)
 	{
-         this.loadNoticeGrid(this.contiKey-29);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
+         this.loadNoticeGrid(this.contiKey);  // next_key를 포함하여 다음 30개 데이터를 다시 불러옴
 	}
 
     // 공지사항 조회 시 - TE1000
@@ -106,7 +106,7 @@ TE1000 = class TE1000 extends AView
                     item.notice_type = noticeTypeMap[item.notice_type];                                 // 구분 변환
                 });
 
-                thisObj.contiKey = outblock1[0].next_key;
+                thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
     }
