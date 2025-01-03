@@ -184,6 +184,7 @@ TE1000 = class TE1000 extends AView
         theApp.qm.sendProcessByName('TE1011', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
+                console.log("공지사항 추가 구분",inblock1);
                 inblock1.notice_title = noticeTitle;
                 inblock1.notice_content = noticeContent;
             },

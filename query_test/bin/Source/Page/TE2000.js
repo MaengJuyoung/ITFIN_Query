@@ -59,6 +59,8 @@ TE2000 = class TE2000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
+                console.log("outblock1",outblock1)
+
                 outblock1.unshift({'user_id': "*******"});
 
                 if (!outblock1 || outblock1.length <= 0) {
@@ -77,6 +79,7 @@ TE2000 = class TE2000 extends AView
         theApp.qm.sendProcessByName('TE2010', this.getContainerId(), null,
             function(queryData){
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
+                console.log("inblock1",inblock1)
                 if (inblock1.user_id == "*******") inblock1.user_id = 0;
             },
             function(queryData){
@@ -88,6 +91,7 @@ TE2000 = class TE2000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
+
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
                     thisObj.grid.removeAll();               // 그리드 초기화
