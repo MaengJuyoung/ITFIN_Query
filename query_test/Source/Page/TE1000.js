@@ -71,8 +71,8 @@ TE1000 = class TE1000 extends AView
         thisObj.noticeId.setText('');       // ID 초기화
         thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
         thisObj.noticeTitle.setText('');    // 제목 초기화
-        thisObj.noticeType.setItemText(0, "전체");   // 구분 초기화
-        // thisObj.noticeType.selectItem(0);   // 구분 초기화
+        // thisObj.noticeType.setItemText(0, "전체");   // 구분 초기화
+        thisObj.noticeType.selectItem(0);   // 구분 초기화
 
 
         // 쿼리 전송
@@ -158,9 +158,7 @@ TE1000 = class TE1000 extends AView
 
 
                 // // 조회된 공지사항 데이터를 화면에 표시
-                // thisObj.noticeId.setText(noticeData.notice_id); // ID 설정 또는 초기화
                 thisObj.noticeContent.setData(outblock1[0].notice_content); // 에디터 데이터 설정 또는 초기화
-                // thisObj.noticeTitle.setText(noticeData.notice_title); // 제목 설정 또는 초기화
                 thisObj.noticeType.selectItem(outblock1[0].notice_type); // 구분 설정 또는 초기화
             }
         );
