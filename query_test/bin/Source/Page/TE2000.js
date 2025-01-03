@@ -126,8 +126,6 @@ TE2000 = class TE2000 extends AView
 	{
         const thisObj = this;
         const tabId = e.target.tabId;
-
-        
         thisObj.executeTabQuery(tabId);
 	}
 

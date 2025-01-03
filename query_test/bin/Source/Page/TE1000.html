@@ -107,8 +107,8 @@
     ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 285px; position: relative; left: 0px; background-color: rgb(175, 200, 255); bottom: 0px; overflow: visible;" id="TE1000--footer"
         ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); left: 0px; display: inline-flex; overflow: visible;" id="TE1000--footer_inner"
             ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); overflow: visible; padding: 0px 5px; float: left; left: 0px;" id="TE1000--left"
-                ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 40px; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); padding: 5px 0px; top: 0px; display: block; overflow: visible;" id="TE1000--left_header" data-blocks-te1011="InBlock1,notice_type,,notice_title,," data-query-name="TE1011"
-                    ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 100px; height: 100%; position: relative; top: 0px; float: left;" id="TE1000--noticeType"
+                ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 40px; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); padding: 5px 0px; top: 0px; display: block; overflow: visible;" id="TE1000--left_header" data-query-name="TE1010|TE1012|TE1013" data-blocks-te1010="OutBlock1,,,,notice_id," data-blocks-te1012="InBlock1,,,notice_title,notice_id," data-blocks-te1013="InBlock1,,,,notice_id,"
+                    ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 100px; height: 100%; position: relative; top: 0px; float: left;" id="TE1000--noticeType" data-query-name="TE1010|TE1011|TE1012" data-blocks-te1010="OutBlock1,,notice_type" data-blocks-te1011="InBlock1,notice_type," data-blocks-te1012="InBlock1,notice_type,"
                         ><option value="0">전체</option
                         ><option value="1">공지</option
                         ><option value="2">긴급</option
@@ -116,8 +116,8 @@
                         ><option value="4">시스템</option
                     ></select
                     ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: left; line-height: 30px; margin-left: 5%;">제목</label
-                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: left; margin-left: 10px; width: 60%;" id="TE1000--noticeTitle" data-sgap-width="2"
-                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: right; margin-left: 10px; width: 70px;" id="TE1000--noticeId" disabled="disabled"
+                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: left; margin-left: 10px; width: 60%;" id="TE1000--noticeTitle" data-sgap-width="2" data-blocks-te1010="OutBlock1,notice_title" data-query-name="TE1010|TE1011|TE1012" data-blocks-te1011="InBlock1,notice_title" data-blocks-te1012="InBlock1,notice_title"
+                    ><input data-base="ATextField" data-class="ATextField" type="text" value="" class="ATextField-Style" autocomplete="off" style="height: 30px; position: relative; float: right; margin-left: 10px; width: 70px; cursor: text;" id="TE1000--noticeId" disabled="disabled" contenteditable="true" data-original-text=""
                     ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; float: right; line-height: 30px;">일련번호</label
                 ></div
                 ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 240px; position: relative; background-color: rgb(255, 255, 255); left: 0px; top: 0px; padding-bottom: 5px;" id="TE1000--noticeContent"></div

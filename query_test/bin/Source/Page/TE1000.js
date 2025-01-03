@@ -16,6 +16,7 @@ TE1000 = class TE1000 extends AView
         const today = new Date();
         const startDate = new Date(today.setMonth(today.getMonth() - 1)); // 한 달 전 날짜 계산
         this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
+        
 	}
 
 
@@ -70,7 +71,9 @@ TE1000 = class TE1000 extends AView
         thisObj.noticeId.setText('');       // ID 초기화
         thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
         thisObj.noticeTitle.setText('');    // 제목 초기화
-        thisObj.noticeType.selectItem(0);   // 구분 초기화
+        thisObj.noticeType.setItemText(0, "전체");   // 구분 초기화
+        // thisObj.noticeType.selectItem(0);   // 구분 초기화
+
 
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1000', this.getContainerId(), null,
@@ -136,18 +139,29 @@ TE1000 = class TE1000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
+                console.log("선택조회 구분",outblock1)
+
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
 
-                const noticeData = outblock1[0];
+                // 데이터 변환
+                const noticeTypeMap = {
+                    '1': '공지',
+                    '2': '긴급',
+                    '3': '뉴스',
+                    '4': '시스템',
+                };
 
-                // 조회된 공지사항 데이터를 화면에 표시
-                thisObj.noticeId.setText(noticeData.notice_id); // ID 설정 또는 초기화
-                thisObj.noticeContent.setData(noticeData.notice_content); // 에디터 데이터 설정 또는 초기화
-                thisObj.noticeTitle.setText(noticeData.notice_title); // 제목 설정 또는 초기화
-                thisObj.noticeType.selectItem(noticeData.notice_type); // 구분 설정 또는 초기화
+                // outblock1[0].notice_type = noticeTypeMap[outblock1[0].notice_type];    // 구분 변환
+
+
+                // // 조회된 공지사항 데이터를 화면에 표시
+                // thisObj.noticeId.setText(noticeData.notice_id); // ID 설정 또는 초기화
+                thisObj.noticeContent.setData(outblock1[0].notice_content); // 에디터 데이터 설정 또는 초기화
+                // thisObj.noticeTitle.setText(noticeData.notice_title); // 제목 설정 또는 초기화
+                thisObj.noticeType.selectItem(outblock1[0].notice_type); // 구분 설정 또는 초기화
             }
         );
     }
@@ -256,12 +270,12 @@ TE1000 = class TE1000 extends AView
 	{
         const thisObj = this;
 
-        const noticeId = this.noticeId.getText(); // ID 필드 값
+        // const noticeId = this.noticeId.getText(); // ID 필드 값
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1013', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
-                const inblock1 = queryData.getBlockData('InBlock1')[0];
-                inblock1.notice_id = noticeId;
+                // const inblock1 = queryData.getBlockData('InBlock1')[0];
+                // inblock1.notice_id = noticeId;
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
