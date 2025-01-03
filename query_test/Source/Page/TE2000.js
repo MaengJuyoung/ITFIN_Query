@@ -14,16 +14,13 @@ TE2000 = class TE2000 extends AView
 		super.init(context, evtListener)
 
         const today = new Date();
-        const startDateObj = new Date(today); // 복사본 생성
-        startDateObj.setMonth(today.getMonth() - 1); // 한 달 전으로 설정
-        this.startDate.setDate(this.formatToYYYYMMDD(startDateObj));
-        this.endDate.setDate(this.formatToYYYYMMDD(today));
+        const startDate = new Date(today.setMonth(today.getMonth() - 1)); // 한 달 전 날짜 계산
+        this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
+        // this.endDate.setDate(today);
+
         this.acnt_cd ='';
         this.ord_action = '0';
         
-        this.data = {
-            startDate: this.startDate, endDate: this.endDate, acnt_cd: this.acnt_cd
-        };
 	}
 
 	onInitDone()
@@ -156,19 +153,21 @@ TE2000 = class TE2000 extends AView
         const index = thisObj.grid.getRowIndexByInfo(info);
         if (index == -1) return;
 
-        // 조회 시작일자와 마감일자 설정
-        const startDate = thisObj.formatToYYYYMMDD(thisObj.startDate.getDate()); 
-        const endDate = thisObj.formatToYYYYMMDD(thisObj.endDate.getDate());     
         const acnt_cd = thisObj.grid.getDataByOption(info)[3];
         //const ord_action = '0'
         
-        thisObj.data = {
-            startDate: startDate, endDate: endDate, acnt_cd: acnt_cd
-        };
-        console.log("data=",data)
-        /*const selectedTab = thisObj.tab.getSelectedTab().tabId;
+        thisObj.acnt_cd = acnt_cd;
+	}
 
-        thisObj.tab.selectTabById(`${selectedTab}`);
+    
+    
+
+    // tab 선택 시 - TE3000, TE3010, TE3020, TE3030
+	onTabActionup(comp, info, e)
+	{
+        const thisObj = this;
+        const tabId = e.target.tabId;
+
         // 탭 ID와 매핑되는 쿼리 이름
         const queryMap = {
             tab1: 'TE3000',
@@ -176,23 +175,23 @@ TE2000 = class TE2000 extends AView
             tab3: 'TE3020',
             tab4: 'TE3030',
         };
-
-        thisObj.executeTabQuery(selectedTab, queryMap[selectedTab], data)*/
+        thisObj.executeTabQuery(tabId, queryMap[tabId]);
 	}
 
-    // tab 선택 시 - TE3000, TE3010, TE3020, TE3030
-    executeTabQuery(tabId, queryName, data) {
+    executeTabQuery(tabId, queryName) {
         const thisObj = this;
-        console.log("thisObj.data1",data)
+        thisObj.tab.setTabOption({
+            contentReload: true,
+            changeAnimation: 'slide',
+            sameTabCheck: true
+        })
 
         // 쿼리 전송
         theApp.qm.sendProcessByName(queryName, this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                inblock1.acnt_cd = thisObj.data.acnt_cd;
-                //inblock1.ord_action = '0';
-                inblock1.start_date = thisObj.data.startDate;
-                inblock1.end_date = thisObj.data.endDate;
+                inblock1.acnt_cd = thisObj.acnt_cd;
+                queryData.printQueryData();
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
@@ -203,6 +202,8 @@ TE2000 = class TE2000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
+                // thisObj.grid.removeAll();
+                // queryData.printQueryData();
                 console.log("outblock1", outblock1);
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
@@ -222,24 +223,5 @@ TE2000 = class TE2000 extends AView
             }
         );
     }
-
-
-	onTabActionup(comp, info, e)
-	{
-        const thisObj = this;
-        const tabId = e.target.tabId;
-        console.log("thisObj.data2",thisObj.data)
-
-
-        // 탭 ID와 매핑되는 쿼리 이름
-        const queryMap = {
-            tab1: 'TE3000',
-            tab2: 'TE3010',
-            tab3: 'TE3020',
-            tab4: 'TE3030',
-        };
-        thisObj.executeTabQuery(tabId, queryMap[tabId], thisObj.data);
-
-	}
 }
 

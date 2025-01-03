@@ -1,0 +1,29 @@
+{
+	"name": "TE3030",
+	"desc": "입출금내역 조회",
+	"queryType": "api",
+	"input": {
+		"InBlock1": {
+			"format": [
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["조회시작일자","start_date","","","varchar",8,"0"],
+				["조회마감일자","end_date","","","varchar",8,"0"]
+			]
+		}
+	},
+	"output": {
+		"OutBlock1": {
+			"format": [
+				["이체일자","trsc_date","","","varchar",8,"0"],
+				["이체시간","trsc_time","","","varchar",8,"0"],
+				["이체구분","trsc_type","","","char",1,"0"],
+				["적요","trsc_desc","","","varchar",64,"0"],
+				["거래금액","trsc_amt","","","bigint",20,"0"],
+				["은행코드","bank_code","","","varchar",8,"0"],
+				["계좌번호","acnt_cd","","","varchar",16,"0"],
+				["예금주","acnt_name","","","varchar",32,"0"],
+				["next_key","next_key","","","varchar",128,"0"]
+			]
+		}
+	}
+}

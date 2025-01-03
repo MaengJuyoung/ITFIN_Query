@@ -90,33 +90,11 @@ TE1000 = class TE1000 extends AView
     // 공지사항 조회 시 - TE1000
     loadNoticeGrid(contiKey = '') {
         const thisObj = this;
-        thisObj.noticeId.setText('');       // ID 초기화
-        thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
-        thisObj.noticeTitle.setText('');    // 제목 초기화
-        thisObj.noticeType.selectItem(0);   // 구분 초기화
-
-        // 조회 시작일자와 마감일자 설정
-        const startDate = thisObj.formatToYYYYMMDD(thisObj.startDate.getDate()); 
-        const endDate = thisObj.formatToYYYYMMDD(thisObj.endDate.getDate());     
-
-        // 구분 기본값 설정
-        const noticeType = thisObj.radioGroup.getSelectIndex(); 
-
-        // 구분 값 변환 함수
-        const noticeTypeMap = {
-            '1': '공지',
-            '2': '긴급',
-            '3': '뉴스',
-            '4': '시스템',
-        };
-
+        
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1000', this.getContainerId(), null,
             function (queryData) {
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                inblock1.notice_type = noticeType;
-                inblock1.start_date = startDate;
-                inblock1.end_date = endDate;
                 inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function (queryData) {
@@ -128,30 +106,26 @@ TE1000 = class TE1000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
+                thisObj.grid.removeAll();               // 그리드 초기화
+
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
-                    thisObj.grid.removeAll();               // 그리드 초기화
                     return;
                 }
-                
-                // 날짜 변환 및 그리드 추가
-                const formattedData = outblock1.map(item => ({
-                    ...item,
-                    notice_type: noticeTypeMap[item.notice_type] || '기타',                    // 구분 값 변환
-                    notice_date: (item.notice_date).replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),   // 날짜 변환
-                }));
-                thisObj.grid.removeAll();               // 그리드 초기화
-                formattedData.forEach((item) => {       // 그리드에 데이터 추가
-                    thisObj.grid.addRow([
-                        item.notice_id,
-                        item.notice_title,
-                        item.notice_content,
-                        item.notice_type,
-                        item.notice_date,  
-                    ]);
+                // 데이터 변환
+                const noticeTypeMap = {
+                    '1': '공지',
+                    '2': '긴급',
+                    '3': '뉴스',
+                    '4': '시스템',
+                };
+
+                outblock1.forEach(item => {
+                    item.notice_date = item.notice_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');   // 날짜 변환
+                    item.notice_type = noticeTypeMap[item.notice_type];                                 // 구분 변환
                 });
 
-                // next_key 저장 (필요 시 버튼 등에 사용)
+                console.log("outblock1",outblock1)
                 thisObj.contiKey = outblock1[0].next_key;
             }
         );
@@ -206,11 +180,11 @@ TE1000 = class TE1000 extends AView
 
         // 에디터 및 입력 필드에서 데이터 가져오기
         const noticeContent = this.noticeContent.getData();
-        const noticeTitle = this.noticeTitle.getText(); // 제목 입력 필드 값
-        const noticeType = this.noticeType.getSelectedIndex();   // 구분 입력 필드 값
+        // const noticeTitle = this.noticeTitle.getText(); // 제목 입력 필드 값
+        // const noticeType = this.noticeType.getSelectedIndex();   // 구분 입력 필드 값
 
         // 유효성 검사
-        if (!noticeTitle || !noticeContent || !noticeType) {
+        if (!noticeContent ) {
             return AToast.show('제목, 본문, 구분을 모두 입력해주세요.');
         }
 
@@ -218,9 +192,9 @@ TE1000 = class TE1000 extends AView
         theApp.qm.sendProcessByName('TE1011', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                inblock1.notice_title = noticeTitle;
+                // inblock1.notice_title = noticeTitle;
                 inblock1.notice_content = noticeContent;
-                inblock1.notice_type = noticeType;
+                // inblock1.notice_type = noticeType;
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
