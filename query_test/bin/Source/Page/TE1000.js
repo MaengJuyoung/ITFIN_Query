@@ -159,21 +159,19 @@ TE1000 = class TE1000 extends AView
 
         // 에디터 및 입력 필드에서 데이터 가져오기
         const noticeContent = this.noticeContent.getData();
-        // const noticeTitle = this.noticeTitle.getText(); // 제목 입력 필드 값
-        // const noticeType = this.noticeType.getSelectedIndex();   // 구분 입력 필드 값
+        const noticeTitle = this.noticeTitle.getText(); // 제목 입력 필드 값
 
         // 유효성 검사
-        if (!noticeContent ) {
-            return AToast.show('제목, 본문, 구분을 모두 입력해주세요.');
+        if (!noticeContent || !noticeTitle) {
+            return AToast.show('모든 항목을 입력해주세요.');
         }
 
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1011', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                // inblock1.notice_title = noticeTitle;
+                inblock1.notice_title = noticeTitle;
                 inblock1.notice_content = noticeContent;
-                // inblock1.notice_type = noticeType;
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();

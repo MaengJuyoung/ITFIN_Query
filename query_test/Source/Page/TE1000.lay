@@ -28,7 +28,7 @@
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" data-listener-click="TE1000:onNoticeSelectBtnClick">조회</button
         ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 30px; position: relative; margin-left: 10px;" id="TE1000--contiKey" data-listener-click="TE1000:onContiKeyClick">다음</button
     ></div
-    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: calc((100% - 285px) - 50px); left: 0px; position: absolute; bottom: 285px; visibility: visible; overflow: auto;" data-sgap-height="1" data-listener-select="TE1000:onGridSelect" id="TE1000--grid" data-fullrow-select="true" data-blocks-te1000="OutBlock1,notice_id,notice_title,notice_content,notice_type,notice_date" data-query-name="TE1000"
+    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; left: 0px; position: relative; visibility: visible; overflow: auto; top: 0px; height: calc((100% - 0px) - 335px);" data-listener-select="TE1000:onGridSelect" id="TE1000--grid" data-fullrow-select="true" data-blocks-te1000="OutBlock1,notice_id,notice_title,notice_content,notice_type,notice_date" data-query-name="TE1000" data-sgap-height="1"
         ><div class="grid-scroll-area" style=""
             ><table class="grid-header-table" align="center"
                 ><colgroup
@@ -104,7 +104,7 @@
             ></table
         ></div
     ></div
-    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 285px; position: absolute; left: 0px; background-color: rgb(175, 200, 255); bottom: 0px; overflow: visible;" id="TE1000--footer"
+    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 285px; position: relative; left: 0px; background-color: rgb(175, 200, 255); bottom: 0px; overflow: visible;" id="TE1000--footer"
         ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); left: 0px; display: inline-flex; overflow: visible;" id="TE1000--footer_inner"
             ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); overflow: visible; padding: 0px 5px; float: left; left: 0px;" id="TE1000--left"
                 ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 40px; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); padding: 5px 0px; top: 0px; display: block; overflow: visible;" id="TE1000--left_header" data-blocks-te1011="InBlock1,notice_type,,notice_title,," data-query-name="TE1011"

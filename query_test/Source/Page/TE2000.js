@@ -1,4 +1,3 @@
-
 TE2000 = class TE2000 extends AView
 {
 	constructor()
@@ -35,8 +34,15 @@ TE2000 = class TE2000 extends AView
 	{
 		super.onActiveDone(isFirst);
         
-        var tabData = this.getTabData();
-        console.log("tabData",tabData)
+        
+        // 동적 뷰가 로드되었는지 확인
+        if (this.getLoadView()) {
+            var innerView = this.view.getLoadView();
+            console.log("동적 뷰 로드 완료:", innerView);
+        } else {
+            console.log("동적 뷰가 아직 초기화되지 않았습니다.");
+        }
+
 	}
 
     // 관리자 조회 시 - TE2000
@@ -126,15 +132,17 @@ TE2000 = class TE2000 extends AView
     executeTabQuery(tabId) {
         const thisObj = this;
 
-        const tabId2 = thisObj.tab.getLastSelectedTabId();
-        console.log("선택된 탭=",tabId);
-        console.log("이전에 선택한 탭=",tabId2);
-        
+        // // 동적 뷰 가져오기
+        // const innerView = thisObj.getLoadView();
+        // if (!innerView) {
+        //     console.log("동적 뷰가 로드되지 않았습니다. 초기화가 필요합니다.");
+        //     return;
+        // }
 
-        // if (thisObj.tab.getLastSelectedTabId() == tabId) return;    // 이전에 선택한 탭이면 데이터 추가 안하고 return -> 다른거 눌럿다가 누르면 추가됨 젠장~
-        
-        // const thisTab = thisObj.tab.getTabById(tabId);
-        // // thisObj.tab.clearTabContent(thisTab);
+        // console.log("동적 뷰:", innerView);
+
+        // // 동적 뷰에 그리드 초기화 로직 추가 가능
+        // innerView.grid && innerView.grid.removeAll();
 
 
         // 쿼리 전송
