@@ -411,6 +411,14 @@
                 "comment": "회원가입"
               }
             ]
+          },
+          {
+            "type": 12,
+            "name": "MyFormat.fmt",
+            "action": 11,
+            "relType": 1,
+            "path": "Source\\",
+            "comment": ""
           }
         ]
       },
