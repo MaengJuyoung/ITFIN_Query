@@ -3,6 +3,11 @@ TE2000 = class TE2000 extends AView
 	constructor()
 	{
 		super();
+        this.contiKey = '';
+        this.tabContiKey = '';
+        this.insertBtn = '';
+
+
 	}
 
 	init(context, evtListener)
@@ -10,7 +15,7 @@ TE2000 = class TE2000 extends AView
 		super.init(context, evtListener)
 
         const today = new Date();
-        const startDate = new Date(today.setMonth(today.getMonth() - 1)); // 한 달 전 날짜 계산
+        const startDate = new Date(today.setMonth(today.getMonth() - 2)); // 두 달 전 날짜 계산
         this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
 
         this.acnt_cd ='';       // 계좌번호 
@@ -34,19 +39,11 @@ TE2000 = class TE2000 extends AView
 	{
 		super.onActiveDone(isFirst);
         
-        // 동적 뷰가 로드되었는지 확인
-        if (this.getLoadView()) {
-            var innerView = this.view.getLoadView();
-            console.log("동적 뷰 로드 완료:", innerView);
-        } else {
-            console.log("동적 뷰가 아직 초기화되지 않았습니다.");
-        }
-
+        
 	}
 
     // 관리자 조회 시 - TE2000
     loadAdmin() {
-        const thisObj = this;
         theApp.qm.sendProcessByName('TE2000', this.getContainerId(), null, 
             function (queryData) {  },
             function (queryData) {
@@ -91,9 +88,7 @@ TE2000 = class TE2000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }                
-                if (!contiKey) {
-                    thisObj.grid.removeAll();               // 그리드 초기화
-                }
+                if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
 
                 // next_key 저장 (필요 시 버튼 등에 사용)
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
@@ -119,6 +114,12 @@ TE2000 = class TE2000 extends AView
         this.loadUserGrid();
 	}
 
+    // 다음 버튼 클릭 시 
+	onContiKeyClick(comp, info, e)
+	{
+        this.loadNoticeGrid(this.contiKey);
+	}
+
     // 회원 선택 시 
 	onGridSelect(comp, info, e)
 	{   
@@ -139,23 +140,32 @@ TE2000 = class TE2000 extends AView
 	{
         const thisObj = this;
         const tabId = e.target.tabId;
+        console.log("tabId",tabId)
+        
         thisObj.executeTabQuery(tabId);
 	}
 
     executeTabQuery(tabId) {
         const thisObj = this;
+        //console.log("동적 뷰:", thisObj.getLoadView());
 
-        // // 동적 뷰 가져오기
-        // const innerView = thisObj.getLoadView();
-        // if (!innerView) {
-        //     console.log("동적 뷰가 로드되지 않았습니다. 초기화가 필요합니다.");
-        //     return;
-        // }
 
-        // console.log("동적 뷰:", innerView);
+        // 비동기적으로 탭을 선택하고 그리드를 찾기 => 그리드 내용 초기화 
+        thisObj.tab.selectTabById(tabId).then((selectedTab) => {
+            console.log("selectedTab",selectedTab)
+            const gridComp = selectedTab.content.view.grid;
+            console.log("탭 그리드=", gridComp);
 
-        // // 동적 뷰에 그리드 초기화 로직 추가 가능
-        // innerView.grid && innerView.grid.removeAll();
+            gridComp.removeAll();
+
+            if (tabId == 'tab1') { // tab1 이면 ordAction과 btn 접근
+                const insertBtn = selectedTab.content.view.insertBtn;
+                console.log("insertBtn====", insertBtn);
+                insertBtn.addEventListener('click', this.onTabInsertBtnClick.bind(this)); // insertBtn 클릭 시 이벤트 처리
+            }            
+        }).catch((error) => {
+            //console.error("탭을 선택하는 중 오류가 발생했습니다:", error);
+        });
 
 
         // 쿼리 전송
@@ -178,8 +188,68 @@ TE2000 = class TE2000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
+
+
+                const selectedTab = thisObj.tab.selectTabById(tabId);
+                console.log("selectedTab=",selectedTab)
+/*
+                const gridComp = selectedTab.content.view.grid;
+                console.log("탭 그리드=",gridComp)
+                */
             }
         );
     }
+
+    // tabInsertBtn 클릭 이벤트 핸들러
+    onTabInsertBtnClick(comp, info, e) {
+        const thisObj = this;
+        console.log("onInsertBtnClick")
+
+        // insertBtn 클릭 시 loadUserGrid 호출
+        thisObj.loadUserGrid(thisObj.contiKey); // 현재 contiKey를 전달하여 회원 조회
+
+        // 필요에 따라 다른 동작 추가
+    }
+
+    // contiKey 클릭 이벤트 핸들러 (예시)
+    onContiKeyClick(comp, info, e) {
+        const thisObj = this;
+        console.log("onContiKeyClick")
+
+        // contiKey 값으로 원하는 작업을 처리하는 코드 작성
+        console.log('ContiKey clicked:', thisObj.contiKey);
+        
+        // 예시로 executeTabQuery 실행
+        const tabId = thisObj.tab.getLastSelectedTabId();
+        thisObj.executeTabQuery(tabId); // 선택된 탭에 대해 쿼리 실행
+    }
+
+    // selectTabAndInitializeComponents에서 이벤트 리스너 등록
+    async selectTabAndInitializeComponents(tabId) {
+        try {
+            const selectedTab = await this.tab.selectTabById(tabId);
+
+            // 그리드 초기화
+            const gridComp = selectedTab.content.view.grid;
+            gridComp.removeAll();
+
+            // radioGroup 초기화
+            const ordAction = selectedTab.content.view.ordAction;
+
+            // 버튼 초기화 및 이벤트 리스너 추가
+            this.insertBtn = selectedTab.content.view.insertBtn;
+            this.insertBtn.addEventListener('click', this.onTabInsertBtnClick.bind(this)); // insertBtn 클릭 시 이벤트 처리
+
+            const contiKey = selectedTab.content.view.contiKey;
+            contiKey.addEventListener('click', this.onContiKeyClick.bind(this)); // contiKey 클릭 시 이벤트 처리
+
+            this.contiKey = contiKey; // 초기화된 contiKey를 클래스 변수에 저장
+
+        } catch (error) {
+            //console.error("탭을 선택하는 중 오류가 발생했습니다:", error);
+        }
+    }
+
+    
 }
 
