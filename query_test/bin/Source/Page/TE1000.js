@@ -3,7 +3,6 @@ TE1000 = class TE1000 extends AView
 	constructor()
 	{
 		super()
-
 		this.contiKey = '';
 	}
 
@@ -16,17 +15,12 @@ TE1000 = class TE1000 extends AView
         const today = new Date();
         const startDate = new Date(today.setMonth(today.getMonth() - 1)); // 한 달 전 날짜 계산
         this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
-        
 	}
-
 
 	onInitDone()
 	{
 		super.onInitDone()
-
-		// 초기화 시 데이터 로드
-		this.loadNoticeGrid();
-
+		this.loadNoticeGrid();      // 초기화 시 데이터 로드
 	}
 
 	onActiveDone(isFirst)
@@ -68,11 +62,11 @@ TE1000 = class TE1000 extends AView
     // 공지사항 조회 시 - TE1000
     loadNoticeGrid(contiKey = '') {
         const thisObj = this;
-        thisObj.noticeId.setText('');       // ID 초기화
-        thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
-        thisObj.noticeTitle.setText('');    // 제목 초기화
-        thisObj.noticeType.selectItem(0);   // 구분 초기화
-
+        thisObj.noticeId.setText('');               // ID 초기화
+        thisObj.noticeContent.setData('');          // 에디터 데이터 초기화
+        thisObj.noticeTitle.setText('');            // 제목 초기화
+        thisObj.noticeType.selectItem(0);           // 구분 초기화
+        if (!contiKey) thisObj.grid.removeAll();    // 그리드 초기화
 
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1000', this.getContainerId(), null,
@@ -93,8 +87,6 @@ TE1000 = class TE1000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-                if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
-                
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );

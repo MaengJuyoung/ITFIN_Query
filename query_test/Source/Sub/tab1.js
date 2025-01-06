@@ -39,9 +39,8 @@ tab1 = class tab1 extends AView
 
     loadGrid(contiKey=''){
         const thisObj = this;
-        thisObj.grid.removeAll();
         const ordAction = thisObj.ordAction.getSelectIndex();
-        console.log("ordAction",ordAction)
+        if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
         
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE3000', this.getContainerId(), null,
@@ -49,7 +48,7 @@ tab1 = class tab1 extends AView
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
                 inblock1.acnt_cd = thisObj.acnt_cd;
                 inblock1.ord_action = ordAction;
-                console.log("inblock1",inblock1);
+                inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
@@ -60,20 +59,11 @@ tab1 = class tab1 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
-                console.log("outblock1",outblock1);
-
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-
-
-                // const selectedTab = thisObj.tab.selectTabById(tabId);
-                // console.log("selectedTab=",selectedTab)
-/*
-                const gridComp = selectedTab.content.view.grid;
-                console.log("탭 그리드=",gridComp)
-                */
+                thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
     }

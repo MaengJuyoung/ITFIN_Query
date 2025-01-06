@@ -4,10 +4,7 @@ TE2000 = class TE2000 extends AView
 	{
 		super();
         this.contiKey = '';
-        this.tabContiKey = '';
-        this.insertBtn = '';
-
-
+        this.acnt_cd = '';
 	}
 
 	init(context, evtListener)
@@ -38,8 +35,6 @@ TE2000 = class TE2000 extends AView
 	onActiveDone(isFirst)
 	{
 		super.onActiveDone(isFirst);
-        
-        
 	}
 
     // 관리자 조회 시 - TE2000
@@ -68,12 +63,13 @@ TE2000 = class TE2000 extends AView
     // 회원 조회 시 - TE2010
     loadUserGrid(contiKey = '') {
         const thisObj = this;
-        thisObj.grid.removeAll();
+        if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
 
         theApp.qm.sendProcessByName('TE2010', this.getContainerId(), null,
             function(queryData){
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
                 if (inblock1.user_id == "*******") inblock1.user_id = 0;
+                inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function(queryData){
                 const errorData = this.getLastError();
@@ -88,9 +84,6 @@ TE2000 = class TE2000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }                
-                if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
-
-                // next_key 저장 (필요 시 버튼 등에 사용)
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             },
             function(queryData){    // 수신된 데이터(AQueryData)를 컴포넌트에 반영한 후에 호출되는 함수
@@ -104,8 +97,6 @@ TE2000 = class TE2000 extends AView
                 })
             }
         );
-        
-
     }
 
     // 조회 버튼 클릭 시 
@@ -117,7 +108,7 @@ TE2000 = class TE2000 extends AView
     // 다음 버튼 클릭 시 
 	onContiKeyClick(comp, info, e)
 	{
-        this.loadNoticeGrid(this.contiKey);
+        this.loadUserGrid(this.contiKey);
 	}
 
     // 회원 선택 시 
@@ -129,10 +120,6 @@ TE2000 = class TE2000 extends AView
 
         const acnt_cd = thisObj.grid.getDataByOption(info)[3];        
         thisObj.acnt_cd = acnt_cd;          // 선택한 회원의 계좌번호 전역변수에 저장
-
-        //const tabId = thisObj.tab.getLastSelectedTabId();
-        // thisObj.tab.selectTabById(tabId);   // 회원만 선택 시 tabId는 첫번째 탭
-        // thisObj.executeTabQuery(tabId);     // 회원만 선택 시, 자동으로 거래내역 보여주기
 	}
 
     // tab 선택 시 - TE3000, TE3010, TE3020, TE3030
@@ -140,11 +127,9 @@ TE2000 = class TE2000 extends AView
 	{
         const thisObj = this;
         const tabId = e.target.tabId;
-        //console.log("thisObj.acnt_cd",thisObj.acnt_cd)
+
         if (tabId == 'tab1') thisObj.tab.selectTabById(tabId, {data :thisObj.acnt_cd});   // 회원만 선택 시 tabId는 첫번째 탭
         else thisObj.executeTabQuery(tabId);
-        //thisObj.executeTabQuery(tabId);
-
 	}
 
     executeTabQuery(tabId) {
@@ -179,40 +164,8 @@ TE2000 = class TE2000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-
-/*
-                const selectedTab = thisObj.tab.selectTabById(tabId);
-                console.log("selectedTab=",selectedTab)
-
-                const gridComp = selectedTab.content.view.grid;
-                console.log("탭 그리드=",gridComp)
-                */
             }
         );
     }
-/*
-    // tabInsertBtn 클릭 이벤트 핸들러
-    onTabInsertBtnClick(comp, info, e) {
-        const thisObj = this;
-        console.log("onInsertBtnClick")
-
-        // insertBtn 클릭 시 loadUserGrid 호출
-        thisObj.loadUserGrid(thisObj.contiKey); // 현재 contiKey를 전달하여 회원 조회
-
-        // 필요에 따라 다른 동작 추가
-    }
-
-    // contiKey 클릭 이벤트 핸들러 (예시)
-    onTabContiKeyClick(comp, info, e) {
-        const thisObj = this;
-        console.log("onContiKeyClick")
-
-        // contiKey 값으로 원하는 작업을 처리하는 코드 작성
-        console.log('ContiKey clicked:', thisObj.contiKey);
-        
-        // 예시로 executeTabQuery 실행
-        const tabId = thisObj.tab.getLastSelectedTabId();
-        thisObj.executeTabQuery(tabId); // 선택된 탭에 대해 쿼리 실행
-    }    */
 }
 
