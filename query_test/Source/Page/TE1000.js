@@ -89,12 +89,11 @@ TE1000 = class TE1000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
-                thisObj.grid.removeAll();               // 그리드 초기화
-
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
+                if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
                 
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }

@@ -17,3 +17,14 @@ ADataMask.MyFormat.noticeType =
         }
 	}
 };
+
+ADataMask.MyFormat.trscType =
+{
+	title : "입출금내역 조회 구분",
+	param : [], //마스크 등록 시 입력할 파라미터 정의
+	func : function trscType(value, param, ele, dataObj)
+	{
+        if (value == 'D') return "입금";
+        else return "출금";
+	}
+};

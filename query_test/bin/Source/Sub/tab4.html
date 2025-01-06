@@ -1,6 +1,6 @@
-<div data-base="AView" data-class="tab4" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); overflow: auto;" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;AGrid&quot;]}" data-browser-width="1280"
-    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 1200px; height: 100%; position: relative; left: 0px; top: 0px; visibility: visible;" data-fullrow-select="true" data-blocks-te3030="OutBlock1,trsc_date,trsc_time,trsc_type,trsc_desc,trsc_amt,bank_code,acnt_cd,acnt_name" data-query-name="TE3030"
-        ><div class="grid-scroll-area" style=""
+<div data-base="AView" data-class="tab4" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); overflow: auto; z-index: 0; backface-visibility: hidden; position: relative;" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;AGrid&quot;]}" data-browser-width="1280"
+    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: 100%; position: relative; left: 0px; top: 0px; visibility: visible; min-width: 1000px;" data-blocks-te3030="OutBlock1,trsc_date,trsc_time,trsc_type,trsc_desc,trsc_amt,bank_code,acnt_cd,acnt_name" data-query-name="TE3030" data-fullrow-select="true"
+        ><div class="grid-scroll-area" style="min-width: 1000px;"
             ><table class="grid-header-table" align="center"
                 ><colgroup
                     ><col
@@ -12,7 +12,7 @@
                     ><col
                     ><col
                 ></colgroup
-                ><thead align="center" class="head-prop" style="display: table-header-group;"
+                ><thead align="center" class="head-prop" style=""
                     ><tr height="30" style="background-color: rgb(130, 170, 255);"
                         ><td class="" style="">이체일자</td
                         ><td class="" style="">이체시간</td
@@ -50,11 +50,11 @@
                 ></thead
                 ><tbody align="center" class="body-prop"
                     ><tr height="22px"
-                        ><td>1,1</td
-                        ><td>1,2</td
-                        ><td class="">1,3</td
+                        ><td class="" data-maskfunc="Date.date" data-maskparam="[&quot;-&quot;]" data-maskorigin="1,1">1,1--</td
+                        ><td class="" data-maskfunc="Date.time" data-maskparam="[&quot;:&quot;]" data-maskorigin="1,2">1,:2:</td
+                        ><td class="" data-maskfunc="MyFormat.trscType" data-maskparam="[]" data-maskorigin="1,3">출금</td
                         ><td class=""></td
-                        ><td class=""></td
+                        ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
                         ><td class=""></td
                         ><td class=""></td
                         ><td></td

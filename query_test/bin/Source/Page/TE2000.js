@@ -34,7 +34,6 @@ TE2000 = class TE2000 extends AView
 	{
 		super.onActiveDone(isFirst);
         
-        
         // 동적 뷰가 로드되었는지 확인
         if (this.getLoadView()) {
             var innerView = this.view.getLoadView();
@@ -59,8 +58,6 @@ TE2000 = class TE2000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
-                console.log("outblock1",outblock1)
-
                 outblock1.unshift({'user_id': "*******"});
 
                 if (!outblock1 || outblock1.length <= 0) {
@@ -90,16 +87,30 @@ TE2000 = class TE2000 extends AView
                 }
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
-
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
-                    thisObj.grid.removeAll();               // 그리드 초기화
                     return;
+                }                
+                if (!contiKey) {
+                    thisObj.grid.removeAll();               // 그리드 초기화
                 }
+
                 // next_key 저장 (필요 시 버튼 등에 사용)
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
+            },
+            function(queryData){    // 수신된 데이터(AQueryData)를 컴포넌트에 반영한 후에 호출되는 함수
+                const outblock1 = queryData.getBlockData('OutBlock1');
+                outblock1.forEach((item, index) => {
+                    if (item.used_yn == 'N') {
+                        for (let i = 0; i < thisObj.grid.getColumnCount(); i++) {
+                            thisObj.grid.setCellTextColor(index, i, 'red');
+                        }
+                    } 
+                })
             }
         );
+        
+
     }
 
     // 조회 버튼 클릭 시 
@@ -119,7 +130,6 @@ TE2000 = class TE2000 extends AView
         thisObj.acnt_cd = acnt_cd;          // 선택한 회원의 계좌번호 전역변수에 저장
 
         const tabId = thisObj.tab.getLastSelectedTabId();
-        console.log("선택된 탭=",tabId);
         thisObj.tab.selectTabById(tabId);   // 회원만 선택 시 tabId는 첫번째 탭
         thisObj.executeTabQuery(tabId);     // 회원만 선택 시, 자동으로 거래내역 보여주기
 	}
