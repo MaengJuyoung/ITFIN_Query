@@ -371,6 +371,14 @@
                 "relType": 1,
                 "path": "Source\\Sub\\",
                 "comment": ""
+              },
+              {
+                "type": 5,
+                "name": "tab1.js",
+                "action": 9,
+                "relType": 1,
+                "path": "Source\\Sub\\",
+                "comment": ""
               }
             ]
           },

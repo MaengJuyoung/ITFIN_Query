@@ -130,9 +130,9 @@ TE2000 = class TE2000 extends AView
         const acnt_cd = thisObj.grid.getDataByOption(info)[3];        
         thisObj.acnt_cd = acnt_cd;          // 선택한 회원의 계좌번호 전역변수에 저장
 
-        const tabId = thisObj.tab.getLastSelectedTabId();
-        thisObj.tab.selectTabById(tabId);   // 회원만 선택 시 tabId는 첫번째 탭
-        thisObj.executeTabQuery(tabId);     // 회원만 선택 시, 자동으로 거래내역 보여주기
+        //const tabId = thisObj.tab.getLastSelectedTabId();
+        // thisObj.tab.selectTabById(tabId);   // 회원만 선택 시 tabId는 첫번째 탭
+        // thisObj.executeTabQuery(tabId);     // 회원만 선택 시, 자동으로 거래내역 보여주기
 	}
 
     // tab 선택 시 - TE3000, TE3010, TE3020, TE3030
@@ -140,32 +140,23 @@ TE2000 = class TE2000 extends AView
 	{
         const thisObj = this;
         const tabId = e.target.tabId;
-        console.log("tabId",tabId)
-        
-        thisObj.executeTabQuery(tabId);
+        //console.log("thisObj.acnt_cd",thisObj.acnt_cd)
+        if (tabId == 'tab1') thisObj.tab.selectTabById(tabId, {data :thisObj.acnt_cd});   // 회원만 선택 시 tabId는 첫번째 탭
+        else thisObj.executeTabQuery(tabId);
+        //thisObj.executeTabQuery(tabId);
+
 	}
 
     executeTabQuery(tabId) {
         const thisObj = this;
         //console.log("동적 뷰:", thisObj.getLoadView());
-
-
+  
         // 비동기적으로 탭을 선택하고 그리드를 찾기 => 그리드 내용 초기화 
         thisObj.tab.selectTabById(tabId).then((selectedTab) => {
-            console.log("selectedTab",selectedTab)
             const gridComp = selectedTab.content.view.grid;
-            console.log("탭 그리드=", gridComp);
-
             gridComp.removeAll();
-
-            if (tabId == 'tab1') { // tab1 이면 ordAction과 btn 접근
-                const insertBtn = selectedTab.content.view.insertBtn;
-                console.log("insertBtn====", insertBtn);
-                insertBtn.addEventListener('click', this.onTabInsertBtnClick.bind(this)); // insertBtn 클릭 시 이벤트 처리
-            }            
-        }).catch((error) => {
-            //console.error("탭을 선택하는 중 오류가 발생했습니다:", error);
-        });
+      
+        }).catch((error) => {  });
 
 
         // 쿼리 전송
@@ -189,17 +180,17 @@ TE2000 = class TE2000 extends AView
                     return;
                 }
 
-
+/*
                 const selectedTab = thisObj.tab.selectTabById(tabId);
                 console.log("selectedTab=",selectedTab)
-/*
+
                 const gridComp = selectedTab.content.view.grid;
                 console.log("탭 그리드=",gridComp)
                 */
             }
         );
     }
-
+/*
     // tabInsertBtn 클릭 이벤트 핸들러
     onTabInsertBtnClick(comp, info, e) {
         const thisObj = this;
@@ -212,7 +203,7 @@ TE2000 = class TE2000 extends AView
     }
 
     // contiKey 클릭 이벤트 핸들러 (예시)
-    onContiKeyClick(comp, info, e) {
+    onTabContiKeyClick(comp, info, e) {
         const thisObj = this;
         console.log("onContiKeyClick")
 
@@ -222,34 +213,6 @@ TE2000 = class TE2000 extends AView
         // 예시로 executeTabQuery 실행
         const tabId = thisObj.tab.getLastSelectedTabId();
         thisObj.executeTabQuery(tabId); // 선택된 탭에 대해 쿼리 실행
-    }
-
-    // selectTabAndInitializeComponents에서 이벤트 리스너 등록
-    async selectTabAndInitializeComponents(tabId) {
-        try {
-            const selectedTab = await this.tab.selectTabById(tabId);
-
-            // 그리드 초기화
-            const gridComp = selectedTab.content.view.grid;
-            gridComp.removeAll();
-
-            // radioGroup 초기화
-            const ordAction = selectedTab.content.view.ordAction;
-
-            // 버튼 초기화 및 이벤트 리스너 추가
-            this.insertBtn = selectedTab.content.view.insertBtn;
-            this.insertBtn.addEventListener('click', this.onTabInsertBtnClick.bind(this)); // insertBtn 클릭 시 이벤트 처리
-
-            const contiKey = selectedTab.content.view.contiKey;
-            contiKey.addEventListener('click', this.onContiKeyClick.bind(this)); // contiKey 클릭 시 이벤트 처리
-
-            this.contiKey = contiKey; // 초기화된 contiKey를 클래스 변수에 저장
-
-        } catch (error) {
-            //console.error("탭을 선택하는 중 오류가 발생했습니다:", error);
-        }
-    }
-
-    
+    }    */
 }
 
