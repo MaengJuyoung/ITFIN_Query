@@ -79,7 +79,6 @@ TE2000 = class TE2000 extends AView
         theApp.qm.sendProcessByName('TE2010', this.getContainerId(), null,
             function(queryData){
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                console.log("inblock1",inblock1)
                 if (inblock1.user_id == "*******") inblock1.user_id = 0;
             },
             function(queryData){
@@ -98,7 +97,7 @@ TE2000 = class TE2000 extends AView
                     return;
                 }
                 // next_key 저장 (필요 시 버튼 등에 사용)
-                thisObj.contiKey = outblock1[0].next_key;
+                thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
     }

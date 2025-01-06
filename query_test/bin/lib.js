@@ -33771,6 +33771,26 @@ UploadAdapter = class UploadAdapter
 }
 
 
+
+/*
+* ADataMask 사용자 정의 파일
+*/
+if(!ADataMask.MyFormat) ADataMask.MyFormat = {};
+ADataMask.MyFormat.noticeType =
+{
+	title : "공지사항 구분",
+	param : [], //마스크 등록 시 입력할 파라미터 정의
+	func : function noticeType(value, param, ele, dataObj)
+	{
+        switch(value){
+            case '1': return "공지";
+            case '2': return "긴급";
+            case '3': return "뉴스";
+            case '4': return "시스템";
+        }
+	}
+};
+
 afc.scriptMap["Framework/afc/library/jquery-core.js"] = true;
 afc.scriptMap["Framework/afc/library/jquery-ui.js"] = true;
 afc.scriptMap["Framework/afc/library/jquery.ui.touch-punch.js"] = true;
@@ -33809,3 +33829,4 @@ afc.scriptMap["Library/Extentions/ExQueryManager.js"] = true;
 afc.scriptMap["Library/Environment/Config.js"] = true;
 afc.scriptMap["Library/Environment/MenuCollection.js"] = true;
 afc.scriptMap["Library/Custom/UploadAdapter.js"] = true;
+afc.scriptMap["Source/MyFormat.js"] = true;

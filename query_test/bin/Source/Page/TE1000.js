@@ -71,7 +71,6 @@ TE1000 = class TE1000 extends AView
         thisObj.noticeId.setText('');       // ID 초기화
         thisObj.noticeContent.setData('');  // 에디터 데이터 초기화
         thisObj.noticeTitle.setText('');    // 제목 초기화
-        // thisObj.noticeType.setItemText(0, "전체");   // 구분 초기화
         thisObj.noticeType.selectItem(0);   // 구분 초기화
 
 
@@ -96,19 +95,7 @@ TE1000 = class TE1000 extends AView
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-                // 데이터 변환
-                const noticeTypeMap = {
-                    '1': '공지',
-                    '2': '긴급',
-                    '3': '뉴스',
-                    '4': '시스템',
-                };
-
-                outblock1.forEach(item => {
-                    item.notice_date = item.notice_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');   // 날짜 변환
-                    item.notice_type = noticeTypeMap[item.notice_type];                                 // 구분 변환
-                });
-
+                
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
@@ -154,9 +141,6 @@ TE1000 = class TE1000 extends AView
                     '4': '시스템',
                 };
 
-                // outblock1[0].notice_type = noticeTypeMap[outblock1[0].notice_type];    // 구분 변환
-
-
                 // // 조회된 공지사항 데이터를 화면에 표시
                 thisObj.noticeContent.setData(outblock1[0].notice_content); // 에디터 데이터 설정 또는 초기화
                 thisObj.noticeType.selectItem(outblock1[0].notice_type); // 구분 설정 또는 초기화
@@ -171,10 +155,9 @@ TE1000 = class TE1000 extends AView
 
         // 에디터 및 입력 필드에서 데이터 가져오기
         const noticeContent = this.noticeContent.getData();
-        const noticeTitle = this.noticeTitle.getText(); // 제목 입력 필드 값
 
         // 유효성 검사
-        if (!noticeContent || !noticeTitle) {
+        if (!noticeContent || !this.noticeTitle.getText()) {
             return AToast.show('모든 항목을 입력해주세요.');
         }
 
@@ -182,8 +165,6 @@ TE1000 = class TE1000 extends AView
         theApp.qm.sendProcessByName('TE1011', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                console.log("공지사항 추가 구분",inblock1);
-                inblock1.notice_title = noticeTitle;
                 inblock1.notice_content = noticeContent;
             },
             function(queryData) { // OutBlock 처리
@@ -217,13 +198,10 @@ TE1000 = class TE1000 extends AView
         const thisObj = this;
 
         // 에디터 및 입력 필드에서 데이터 가져오기
-        const noticeId = this.noticeId.getText(); // ID 필드 값
-        const noticeTitle = this.noticeTitle.getText(); // 제목 필드 값
         const noticeContent = this.noticeContent.getData(); // 에디터 데이터 값
-        const noticeType = this.noticeType.getSelectedIndex(); // 구분 필드 값
 
         // 유효성 검사
-        if (!noticeId || !noticeTitle || !noticeContent || !noticeType) {
+        if (!noticeContent || !this.noticeTitle.getText()) {
             return AToast.show('수정할 데이터를 선택하고 모든 필드를 입력해주세요.');
         }
 
@@ -231,11 +209,7 @@ TE1000 = class TE1000 extends AView
         theApp.qm.sendProcessByName('TE1012', this.getContainerId(), null,
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                inblock1.notice_id = noticeId;
-                inblock1.notice_title = noticeTitle;
                 inblock1.notice_content = noticeContent;
-                inblock1.notice_type = noticeType;
-                inblock1.notice_file = ''; // 파일 경로 (필요 시 업데이트)
             },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
@@ -269,13 +243,9 @@ TE1000 = class TE1000 extends AView
 	{
         const thisObj = this;
 
-        // const noticeId = this.noticeId.getText(); // ID 필드 값
         // 쿼리 전송
         theApp.qm.sendProcessByName('TE1013', this.getContainerId(), null,
-            function(queryData) { // InBlock 설정
-                // const inblock1 = queryData.getBlockData('InBlock1')[0];
-                // inblock1.notice_id = noticeId;
-            },
+            function(queryData) {   },
             function(queryData) { // OutBlock 처리
                 const errorData = this.getLastError();
                 if (errorData.errFlag === "E") {
