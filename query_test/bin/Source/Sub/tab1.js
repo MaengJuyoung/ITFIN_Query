@@ -27,6 +27,7 @@ tab1 = class tab1 extends AView
 	onTabInsertBtnClick(comp, info, e)
 	{
         this.acnt_cd = this.getContainerView().acnt_cd  // 상위 컨테이너 뷰에서 계좌번호 가져오기 
+        
         this.loadGrid();
 	}
 

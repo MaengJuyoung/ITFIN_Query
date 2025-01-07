@@ -6,6 +6,7 @@ TE2000 = class TE2000 extends AView
         this.contiKey = '';
         this.tabContiKey = '';
         this.acnt_cd = '';
+        this.selectedTab = '';
 	}
 
 	init(context, evtListener)
@@ -21,6 +22,7 @@ TE2000 = class TE2000 extends AView
 		super.onInitDone();
         this.loadAdmin();       // 관리자 조회 및 셀렉트 박스 세팅
         this.loadUserGrid();    // 회원 조회 및 그리드 세팅
+        this.innerHeader.element.style.display = 'none';
 	}
 
 	onActiveDone(isFirst)
@@ -128,15 +130,35 @@ TE2000 = class TE2000 extends AView
 
         const acnt_cd = thisObj.grid.getDataByOption(info)[3];        
         thisObj.acnt_cd = acnt_cd;          // 선택한 회원의 계좌번호 전역변수에 저장
+        this.innerHeader.element.style.display = 'flex';
+
+        thisObj.tab.selectTabById('tab1');
 	}
 
     // tab 선택 시 - TE3000, TE3010, TE3020, TE3030
-	onTabActionup(comp, info, e)
+	onTabClick(comp, info, e)
 	{
         const thisObj = this;
-        const tabId = e.target.tabId;
+        thisObj.tabContiKey = '';       // tab contiKey 초기화 
+
+        const tabId = comp.compId;
         thisObj.tab.selectTabById(tabId);
 
+        
+        if (tabId != 'tab1') this.ordAction.element.style.display = 'none';
+        else this.ordAction.element.style.display = 'block';
+/*
+        const initTab = thisObj.tab.getSelectedView();
+        const insertBtn = initTab.$ele[0].childNodes[0].acomp.$ele[0].childNodes[1];
+        const tabContikeyBtn = initTab.$ele[0].childNodes[0].acomp.$ele[0].childNodes[2];
+
+        console.log("initTab",initTab)
+        console.log("insertBtn",insertBtn)
+        console.log("tabContikeyBtn",tabContikeyBtn)
+*/
+
+
+/*
         const queryMap = {       // 탭 ID와 매핑되는 쿼리 이름
             tab1: 'TE3000',
             tab2: 'TE3010',
@@ -155,12 +177,21 @@ TE2000 = class TE2000 extends AView
             }
 
             
-        }
+        }*/
 	}
 
     loadTabGrid(tabContiKey=''){
         const thisObj = this;
         if (!tabContiKey) thisObj.grid.removeAll();    // 그리드 초기화
+        const tabId = thisObj.selectedTab;
+        console.log("tabId",tabId)
+
+        const queryMap = {       // 탭 ID와 매핑되는 쿼리 이름
+            tab1: 'TE3000',
+            tab2: 'TE3010',
+            tab3: 'TE3020',
+            tab4: 'TE3030',
+        };
 
         theApp.qm.sendProcessByName(queryMap[tabId], this.getContainerId(), null,
                 function(queryData) { 
@@ -185,5 +216,23 @@ TE2000 = class TE2000 extends AView
                 }
             );
     }
+
+    // 탭 조회 버튼 클릭 시 
+	onTabContiKeyClick(comp, info, e)
+	{
+        const initTab = this.tab.getSelectedView().className;
+        console.log("initTab",initTab)
+        
+        //this.loadTabGrid();
+	}
+
+    // 탭 다음 버튼 클릭 시 
+	onTabInsertBtnClick(comp, info, e)
+	{
+        const initTab = this.tab.getSelectedView().className;
+        console.log("initTab",initTab)
+        this.selectedTab = initTab;
+        //this.loadTabGrid(this.tabContiKey);
+	}
 }
 

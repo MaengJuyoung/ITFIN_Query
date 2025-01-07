@@ -1,4 +1,4 @@
-<div data-base="AView" data-class="TE2000" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); overflow: auto; position: relative; min-width: 680px; z-index: 0; backface-visibility: hidden;" data-browser-height="930" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ALabel&quot;,&quot;ASelectBox&quot;,&quot;ATextField&quot;,&quot;AButton&quot;,&quot;AGrid&quot;,&quot;ATabView&quot;],&quot;mdfc&quot;:[&quot;ACalendarPicker&quot;]}" data-browser-width="1900"
+<div data-base="AView" data-class="TE2000" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); overflow: auto; position: relative; min-width: 680px; z-index: 0; backface-visibility: hidden;" data-browser-height="930" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ALabel&quot;,&quot;ASelectBox&quot;,&quot;ATextField&quot;,&quot;AButton&quot;,&quot;AGrid&quot;,&quot;ARadioGroup&quot;,&quot;ARadioButton&quot;,&quot;ATabView&quot;],&quot;mdfc&quot;:[&quot;ACalendarPicker&quot;]}" data-browser-width="1900"
     ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; background-color: rgb(175, 200, 255); padding: 10px 5px; display: inline-flex; min-width: 1280px;" id="TE2000--header"
         ><label data-base="ALabel" data-class="ALabel" class="ALabel-Style" style="width: auto; height: 30px; position: relative; line-height: 30px;">담당자</label
         ><select data-base="ASelectBox" data-class="ASelectBox" class="ASelectBox-Style" style="width: 140px; height: 30px; position: relative; margin-left: 10px; margin-top: 0px;" id="TE2000--selectBox" data-blocks-te2010="InBlock1,user_id," data-query-name="TE2010|TE2000" data-blocks-te2000="OutBlock1,,user_id"
@@ -27,7 +27,7 @@
         ></div
     ></div
     ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: calc((100% - 0px) - 50px); position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); bottom: 0px; min-width: 1000px; display: flex;" id="TE2000--container" data-sgap-height="1"
-        ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 600px; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); top: 0px;"
+        ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 600px; height: 100%; position: relative; background-color: rgba(0, 0, 0, 0); top: 0px;" id="TE2000--left"
             ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 100%; height: 100%; position: relative; left: 0px; top: 0px; visibility: visible; margin-left: 0px;" data-listener-select="TE2000:onGridSelect" id="TE2000--grid" data-fullrow-select="true"
                 ><div class="grid-scroll-area" style=""
                     ><table class="grid-header-table" align="center"
@@ -113,14 +113,30 @@
                 ></div
             ></div
         ></div
-        ><div data-base="AView" data-class="AView" class="AView-Style" style="position: relative; background-color: rgba(0, 0, 0, 0); top: 0px; overflow: visible; left: 0px; width: 100%; height: 100%; min-width: 600px; margin-left: 0px; margin-top: 0px;" id="TE2000--view"
-            ><div data-base="ATabView" data-class="ATabView" class="ATabView-Style" data-state="0" style="width: 100%; height: 100%; position: relative; left: 0px; top: 0px; margin-left: 0px; background-color: rgba(0, 0, 0, 0); overflow: visible; min-width: 680px;" id="TE2000--tab" data-tabinfo-tab1="tab1,거래내역,Source/Sub/tab1.lay,0" data-tabinfo-tab2="tab2,로그,Source/Sub/tab2.lay,1" data-tabinfo-tab3="tab3,손익내역,Source/Sub/tab3.lay,2" data-tabinfo-tab4="tab4,입출금내역,Source/Sub/tab4.lay,3" data-listener-actionup="TE2000:onTabActionup"
-                ><div class="tab_area" style="height: 50px;"
+        ><div data-base="AView" data-class="AView" class="AView-Style" style="position: relative; background-color: rgba(0, 0, 0, 0); top: 0px; overflow: visible; left: 0px; width: 100%; height: 100%; min-width: 600px; margin-left: 0px; margin-top: 0px;" id="TE2000--right"
+            ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; left: 0px; background-color: rgba(130, 170, 255, 0.5); top: 0px;" id="TE2000--tabHeader"
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 120px; height: 100%; position: relative; margin-right: 10px; left: 0px; top: 0px; background-color: rgb(255, 255, 255); border-radius: 1px; border-width: 1px; border-color: rgb(130, 170, 255);" data-listener-click="TE2000:onTabClick" id="TE2000--tab1">거래내역</button
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 120px; height: 100%; position: relative; margin-right: 10px; background-color: rgb(255, 255, 255); border-radius: 1px; border-width: 1px; border-color: rgb(130, 170, 255);" data-query-name="" id="TE2000--tab2" data-listener-click="TE2000:onTabClick">로그</button
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 120px; height: 100%; position: relative; margin-right: 10px; background-color: rgb(255, 255, 255); border-radius: 1px; border-width: 1px; border-color: rgb(130, 170, 255);" id="TE2000--tab3" data-listener-click="TE2000:onTabClick">손익내역</button
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 120px; height: 100%; position: relative; margin-right: 10px; background-color: rgb(255, 255, 255); border-radius: 1px; border-width: 1px; border-color: rgb(130, 170, 255);" id="TE2000--tab4" data-listener-click="TE2000:onTabClick">입출금내역</button
+            ></div
+            ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; background-color: rgba(0, 0, 0, 0); padding: 5px; display: flex; top: 0px; left: 0px;" id="TE2000--innerHeader"
+                ><div data-base="ARadioGroup" data-class="ARadioGroup" class="ARadioGroup-Style" style="width: 265px; height: 40px; position: relative; background-color: rgb(175, 200, 255); padding: 5px; border-radius: 10px; left: 0px; margin-right: 10px;" id="TE2000--ordAction" data-default-select="ordAction0" data-blocks-te3000="InBlock1,ord_action" data-query-name="TE3000"
+                    ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style radiobtn_check" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="TE2000--ordAction0" data-radio-value="0">전체</span
+                    ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="TE2000--ordAction1" data-radio-value="1">신규</span
+                    ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="TE2000--ordAction2" data-radio-value="2">정정</span
+                    ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: auto; height: 30px; position: relative; float: left;" id="TE2000--ordAction3" data-radio-value="3">취소</span
+                ></div
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 40px; position: relative; border-width: 1px; border-color: rgb(130, 170, 255); margin-right: 10px;" data-listener-click="TE2000:onTabInsertBtnClick" id="TE2000--tabInsertBtn">조회</button
+                ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 40px; position: relative; border-width: 1px; border-color: rgb(130, 170, 255);" id="TE2000--tabContiKey" data-listener-click="TE2000:onTabContiKeyClick">다음</button
+            ></div
+            ><div data-base="ATabView" data-class="ATabView" class="ATabView-Style" data-state="0" style="width: 100%; height: calc((100% - 0px) - 100px); position: relative; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0); overflow: visible; min-width: 680px;" id="TE2000--tab" data-tabinfo-tab1="tab1,거래내역,Source/Sub/tab1.lay,0" data-tabinfo-tab2="tab2,로그,Source/Sub/tab2.lay,1" data-tabinfo-tab3="tab3,손익내역,Source/Sub/tab3.lay,2" data-tabinfo-tab4="tab4,입출금내역,Source/Sub/tab4.lay,3" data-sgap-height="1"
+                ><div class="tab_area" style="height: 50px; display: none;"
                     ><span class="ATabView_select" style="line-height: 50px;">tab1</span
                     ><span class="ATabView_deselect" style="line-height: 50px;">tab2</span
                     ><span class="ATabView_deselect" style="line-height: 50px;">tab3</span
                 ></div
-                ><div class="tab_contents" style="height: calc(100% - 50px);"></div
+                ><div class="tab_contents" style="height: 100%;"></div
             ></div
         ></div
     ></div

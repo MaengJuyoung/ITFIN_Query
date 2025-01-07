@@ -1,194 +1,182 @@
-<div data-base="AView" data-class="tab1" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); overflow: auto; z-index: 0; backface-visibility: hidden; position: relative;" data-browser-width="1430" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;ARadioGroup&quot;,&quot;ARadioButton&quot;,&quot;AButton&quot;,&quot;AGrid&quot;]}" data-browser-height="810"
-    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; height: 50px; position: relative; background-color: rgba(0, 0, 0, 0); padding: 5px; display: flex; top: 0px; left: 0px;" id="tab1--header"
-        ><div data-base="ARadioGroup" data-class="ARadioGroup" class="ARadioGroup-Style" style="width: 265px; height: 40px; position: relative; background-color: rgb(175, 200, 255); padding: 5px; border-radius: 10px; left: 0px;" id="tab1--ordAction" data-default-select="ordAction0" data-blocks-te3000="InBlock1,ord_action" data-query-name="TE3000"
-            ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style radiobtn_check" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="tab1--ordAction0" data-radio-value="0">전체</span
-            ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="tab1--ordAction1" data-radio-value="1">신규</span
-            ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: 65px; height: 30px; position: relative; float: left;" id="tab1--ordAction2" data-radio-value="2">정정</span
-            ><span data-base="ARadioButton" data-class="ARadioButton" class="ARadioButton-Style" tabindex="0" style="width: auto; height: 30px; position: relative; float: left;" id="tab1--ordAction3" data-radio-value="3">취소</span
-        ></div
-        ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 40px; position: relative; margin-left: 10px; border-width: 1px; border-color: rgb(0, 0, 255);" data-listener-click="tab1:onTabInsertBtnClick" id="tab1--insertBtn">조회</button
-        ><button data-base="AButton" data-class="AButton" class="AButton-Style" style="width: 100px; height: 40px; position: relative; margin-left: 10px; border-width: 1px; border-color: rgb(0, 0, 255);" id="tab1--contiKey" data-listener-click="tab1:onTabContiKeyClick">다음</button
-    ></div
-    ><div data-base="AView" data-class="AView" class="AView-Style" style="width: 100%; position: relative; left: 0px; background-color: rgba(0, 0, 0, 0); overflow: auto; height: calc((100% - 0px) - 50px); z-index: 0; backface-visibility: hidden; bottom: 0px;" id="tab1--container" data-sgap-height="1"
-        ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 2700px; position: relative; visibility: visible; margin-left: 0px; overflow: visible; top: 0px; left: 0px; height: 100%;" data-blocks-te3000="OutBlock1,biz_date,ord_time,ord_no,ordno_org,symbol_cd,sellbuy_type,ord_type,ord_qty,ord_prc,trd_time,trd_qty,trd_prc,ord_action,reject_msg,ord_id,ord_ip,cms_fee,book_pnl" data-query-name="TE3000" id="tab1--grid" data-fullrow-select="true"
-            ><div class="grid-scroll-area" style=""
-                ><table class="grid-header-table" align="center"
-                    ><colgroup
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                    ></colgroup
-                    ><thead align="center" class="head-prop" style="display: table-header-group;"
-                        ><tr height="30" style="background-color: rgb(130, 170, 255);"
-                            ><td class="" style="">영업일자</td
-                            ><td class="" style="">주문시간</td
-                            ><td class="" style="">주문번호</td
-                            ><td class="" style="">원주문번호</td
-                            ><td class="" style="">종목코드</td
-                            ><td class="" style="">매도매수구분</td
-                            ><td class="" style="">호가유형</td
-                            ><td class="" style="">주문수량</td
-                            ><td class="" style="">주문가</td
-                            ><td class="" style="">체결시간</td
-                            ><td class="" style="">체결수량</td
-                            ><td class="" style="">체결가</td
-                            ><td class="" style="">신규정정취소구분</td
-                            ><td class="" style="">거부사유</td
-                            ><td class="" style="">주문 ID</td
-                            ><td class="" style="">주문 IP</td
-                            ><td class="" style="">수수료</td
-                            ><td class="" style="">수익금액</td
-                        ></tr
-                    ></thead
-                ></table
-                ><table class="grid-body-table" align="center"
-                    ><colgroup
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                    ></colgroup
-                    ><thead align="center" class="head-prop"
-                        ><tr height="30" style="height: 0px;"
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                        ></tr
-                    ></thead
-                    ><tbody align="center" class="body-prop"
-                        ><tr height="22px"
-                            ><td class="" data-maskfunc="Date.date" data-maskparam="[&quot;-&quot;]" data-maskorigin="1,1">1,1--</td
-                            ><td class="" data-maskfunc="Date.time" data-maskparam="[&quot;:&quot;]" data-maskorigin="1,2">1,:2:</td
-                            ><td class="">1,3</td
-                            ><td class=""></td
-                            ><td class=""></td
-                            ><td class="" data-maskfunc="MyFormat.sellbuyType" data-maskparam="[]" data-maskorigin="">매수</td
-                            ><td class="" data-maskfunc="MyFormat.ordType" data-maskparam="[]" data-maskorigin="">지정가</td
-                            ><td class=""></td
-                            ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
-                            ><td class="" data-maskfunc="Date.time" data-maskparam="[&quot;:&quot;]" data-maskorigin=""></td
-                            ><td class=""></td
-                            ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
-                            ><td class="" data-maskfunc="MyFormat.ordAction" data-maskparam="[]" data-maskorigin="">취소</td
-                            ><td class=""></td
-                            ><td class=""></td
-                            ><td class=""></td
-                            ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
-                            ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
-                        ></tr
-                    ></tbody
-                ></table
-                ><table class="grid-footer-table" align="center"
-                    ><colgroup
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                        ><col
-                    ></colgroup
-                    ><thead align="center" class="head-prop"
-                        ><tr height="0px"
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                        ></tr
-                    ></thead
-                    ><tfoot align="center" class="foot-prop" style="display: none;"
-                        ><tr height="22px"
-                            ><td>col1</td
-                            ><td>col2</td
-                            ><td>col3</td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                            ><td></td
-                        ></tr
-                    ></tfoot
-                ></table
-            ></div
+<div data-base="AView" data-class="tab1" class="AView-Style" style="left: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(255, 255, 255); overflow: auto; z-index: 0; backface-visibility: hidden; position: relative;" data-browser-width="1430" data-class-map="{&quot;afc&quot;:[&quot;AView&quot;,&quot;AGrid&quot;]}" data-browser-height="810"
+    ><div data-base="AGrid" data-class="AGrid" data-selectable="true" data-clear-rowtmpl="true" data-ver="3301" class="AGrid-Style" data-hide-footer="true" style="width: 2700px; position: relative; visibility: visible; margin-left: 0px; overflow: visible; top: 0px; left: 0px; height: 100%;" data-blocks-te3000="OutBlock1,biz_date,ord_time,ord_no,ordno_org,symbol_cd,sellbuy_type,ord_type,ord_qty,ord_prc,trd_time,trd_qty,trd_prc,ord_action,reject_msg,ord_id,ord_ip,cms_fee,book_pnl" data-query-name="TE3000" id="tab1--grid" data-fullrow-select="true"
+        ><div class="grid-scroll-area" style=""
+            ><table class="grid-header-table" align="center"
+                ><colgroup
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                ></colgroup
+                ><thead align="center" class="head-prop" style="display: table-header-group;"
+                    ><tr height="30" style="background-color: rgb(130, 170, 255);"
+                        ><td class="" style="">영업일자</td
+                        ><td class="" style="">주문시간</td
+                        ><td class="" style="">주문번호</td
+                        ><td class="" style="">원주문번호</td
+                        ><td class="" style="">종목코드</td
+                        ><td class="" style="">매도매수구분</td
+                        ><td class="" style="">호가유형</td
+                        ><td class="" style="">주문수량</td
+                        ><td class="" style="">주문가</td
+                        ><td class="" style="">체결시간</td
+                        ><td class="" style="">체결수량</td
+                        ><td class="" style="">체결가</td
+                        ><td class="" style="">신규정정취소구분</td
+                        ><td class="" style="">거부사유</td
+                        ><td class="" style="">주문 ID</td
+                        ><td class="" style="">주문 IP</td
+                        ><td class="" style="">수수료</td
+                        ><td class="" style="">수익금액</td
+                    ></tr
+                ></thead
+            ></table
+            ><table class="grid-body-table" align="center"
+                ><colgroup
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                ></colgroup
+                ><thead align="center" class="head-prop"
+                    ><tr height="30" style="height: 0px;"
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                    ></tr
+                ></thead
+                ><tbody align="center" class="body-prop"
+                    ><tr height="22px"
+                        ><td class="" data-maskfunc="Date.date" data-maskparam="[&quot;-&quot;]" data-maskorigin="1,1">1,1--</td
+                        ><td class="" data-maskfunc="Date.time" data-maskparam="[&quot;:&quot;]" data-maskorigin="1,2">1,:2:</td
+                        ><td class="">1,3</td
+                        ><td class=""></td
+                        ><td class=""></td
+                        ><td class="" data-maskfunc="MyFormat.sellbuyType" data-maskparam="[]" data-maskorigin="">매수</td
+                        ><td class="" data-maskfunc="MyFormat.ordType" data-maskparam="[]" data-maskorigin="">지정가</td
+                        ><td class=""></td
+                        ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
+                        ><td class="" data-maskfunc="Date.time" data-maskparam="[&quot;:&quot;]" data-maskorigin=""></td
+                        ><td class=""></td
+                        ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
+                        ><td class="" data-maskfunc="MyFormat.ordAction" data-maskparam="[]" data-maskorigin="">취소</td
+                        ><td class=""></td
+                        ><td class=""></td
+                        ><td class=""></td
+                        ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
+                        ><td class="" data-maskfunc="Number.money" data-maskparam="[]" data-maskorigin=""></td
+                    ></tr
+                ></tbody
+            ></table
+            ><table class="grid-footer-table" align="center"
+                ><colgroup
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                    ><col
+                ></colgroup
+                ><thead align="center" class="head-prop"
+                    ><tr height="0px"
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                    ></tr
+                ></thead
+                ><tfoot align="center" class="foot-prop" style="display: none;"
+                    ><tr height="22px"
+                        ><td>col1</td
+                        ><td>col2</td
+                        ><td>col3</td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                        ><td></td
+                    ></tr
+                ></tfoot
+            ></table
         ></div
     ></div
 ></div>

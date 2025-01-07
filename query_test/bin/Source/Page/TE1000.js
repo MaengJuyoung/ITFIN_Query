@@ -88,11 +88,10 @@ TE1000 = class TE1000 extends AView
                 const outblock1 = queryData.getBlockData('OutBlock1');
                 if (!outblock1 || outblock1.length <= 0) {
                     thisObj.dataStatus.element.style.display = 'block';
-                    //AToast.show('조회된 데이터가 없습니다.');
                     return;
                 }
-                    thisObj.dataStatus.element.style.display = 'none';
-
+                
+                thisObj.dataStatus.element.style.display = 'none';
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
@@ -210,7 +209,6 @@ TE1000 = class TE1000 extends AView
                 }
 
                 AToast.show('성공적으로 수정되었습니다.');
-                //thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
                 thisObj.loadNoticeGrid();
             }
         );
@@ -240,13 +238,7 @@ TE1000 = class TE1000 extends AView
                     AToast.show('삭제에 실패했습니다.');
                     return;
                 }
-                /*
-                if (outblock1.length == 1) {
-                    thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
-                    AToast.show('글이 모두 삭제되어 메인화면으로 이동합니다.');
-                }else {
-                    AToast.show('성공적으로 삭제되었습니다.');
-                }*/
+                
                 AToast.show('성공적으로 삭제되었습니다.');
                 thisObj.loadNoticeGrid();
             }
