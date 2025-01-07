@@ -23,18 +23,20 @@ tab1 = class tab1 extends AView
 		super.onActiveDone(isFirst)
 	}
 
-
+    // 조회 버튼 클릭 시 
 	onTabInsertBtnClick(comp, info, e)
 	{
-        this.acnt_cd = this.getContainerView().acnt_cd
+        this.acnt_cd = this.getContainerView().acnt_cd  // 상위 컨테이너 뷰에서 계좌번호 가져오기 
         this.loadGrid();
 	}
 
+    // 다음 버튼 클릭 시 
 	onTabContiKeyClick(comp, info, e)
 	{
 		this.loadGrid(this.contiKey);
 	}
 
+    // 거래내역 조회 - TE3000
     loadGrid(contiKey=''){
         const thisObj = this;
         if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화

@@ -4,6 +4,7 @@ TE2000 = class TE2000 extends AView
 	{
 		super();
         this.contiKey = '';
+        this.tabContiKey = '';
         this.acnt_cd = '';
 	}
 
@@ -130,6 +131,7 @@ TE2000 = class TE2000 extends AView
         if (tabId !== 'tab1'){
             if (comp.selectedTab.view){
                 const initTab = comp.selectedTab.view;
+                console.log("initTab",initTab);
                 const tabGrid = initTab.grid;
                 tabGrid.removeAll();
             }
@@ -138,6 +140,7 @@ TE2000 = class TE2000 extends AView
                 function(queryData) { 
                     const inblock1 = queryData.getBlockData('InBlock1')[0];
                     inblock1.acnt_cd = thisObj.acnt_cd;
+                    inblock1.next_key = thisObj.tabContiKey;  // 이전에 가져온 마지막 키를 전달
                 },
                 function(queryData) { 
                     const errorData = this.getLastError();
@@ -151,6 +154,8 @@ TE2000 = class TE2000 extends AView
                         AToast.show('조회된 데이터가 없습니다.');
                         return;
                     }
+                    thisObj.tabContiKey = outblock1[outblock1.length - 1].next_key;
+
                 }
             );
         }
