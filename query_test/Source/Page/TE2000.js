@@ -75,9 +75,25 @@ TE2000 = class TE2000 extends AView
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
                     return;
-                }                
+                }           
+                outblock1.forEach((item) => {
+                    const rowIndex = thisObj.grid.addRow([
+                        item.user_id,
+                        item.member_id,
+                        item.member_name,
+                        item.acnt_cd,
+                        item.deposit_amt,
+                        item.used_yn,
+                    ]);
+                    // used_yn이 'N'인 경우 스타일 적용
+                    if (item.used_yn === 'N') {
+                        thisObj.grid.setCellTextColor2(rowIndex, 'red');
+                    }
+                });
+
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             },
+            /* 데이터쿼리 매핑할 경우 
             function(queryData){    // 수신된 데이터(AQueryData)를 컴포넌트에 반영한 후에 호출되는 함수
                 const outblock1 = queryData.getBlockData('OutBlock1');
                 outblock1.forEach((item, index) => {
@@ -87,7 +103,7 @@ TE2000 = class TE2000 extends AView
                         }
                     } 
                 })
-            }
+            }*/
         );
     }
 

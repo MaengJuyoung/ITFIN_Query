@@ -57,9 +57,15 @@ TE1000 = class TE1000 extends AView
          this.loadNoticeGrid(this.contiKey); 
 	}
 
+    // 구분 변경 시 contiKey 초기화 
+	onRadioGroupChange(comp, info, e) { 
+        this.contiKey = '';	
+    }
+
     // 공지사항 조회 시 - TE1000
     loadNoticeGrid(contiKey = '') {
         const thisObj = this;
+
         thisObj.noticeId.setText('');               // ID 초기화
         thisObj.noticeContent.setData('');          // 에디터 데이터 초기화
         thisObj.noticeTitle.setText('');            // 제목 초기화
@@ -81,9 +87,11 @@ TE1000 = class TE1000 extends AView
 
                 const outblock1 = queryData.getBlockData('OutBlock1');
                 if (!outblock1 || outblock1.length <= 0) {
-                    AToast.show('조회된 데이터가 없습니다.');
+                    thisObj.dataStatus.element.style.display = 'block';
                     return;
                 }
+                
+                thisObj.dataStatus.element.style.display = 'none';
                 thisObj.contiKey = outblock1[outblock1.length - 1].next_key;
             }
         );
@@ -130,10 +138,10 @@ TE1000 = class TE1000 extends AView
         const thisObj = this;
 
         // 에디터 및 입력 필드에서 데이터 가져오기
-        const noticeContent = this.noticeContent.getData();
+        const noticeContent = thisObj.noticeContent.getData();
 
         // 유효성 검사
-        if (!noticeContent || !this.noticeTitle.getText()) {
+        if (!noticeContent || !thisObj.noticeTitle.getText()) {
             return AToast.show('모든 항목을 입력해주세요.');
         }
 
@@ -156,12 +164,10 @@ TE1000 = class TE1000 extends AView
                     return;
                 }
                 if (outblock1[0].success_status !== 'Y') {
-                    AToast.show('공지사항 저장에 실패했습니다.');
+                    AToast.show('저장에 실패했습니다.');
                     return;
                 }
-
-                AToast.show('공지사항이 성공적으로 저장되었습니다.');
-                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
+                AToast.show('성공적으로 저장되었습니다.');
                 thisObj.loadNoticeGrid();
             }
         );
@@ -188,7 +194,7 @@ TE1000 = class TE1000 extends AView
                 const errorData = this.getLastError();
                 if (errorData.errFlag === "E") {
                     console.log("Error Data:", errorData);
-                    AToast.show('공지사항 수정 중 에러가 발생했습니다.');
+                    AToast.show('수정 중 에러가 발생했습니다.');
                     return;
                 }
 
@@ -198,12 +204,11 @@ TE1000 = class TE1000 extends AView
                     return;
                 }
                 if (outblock1[0].success_status !== 'Y') {
-                    AToast.show('공지사항 수정에 실패했습니다.');
+                    AToast.show('수정에 실패했습니다.');
                     return;
                 }
 
-                AToast.show('공지사항이 성공적으로 수정되었습니다.');
-                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
+                AToast.show('성공적으로 수정되었습니다.');
                 thisObj.loadNoticeGrid();
             }
         );
@@ -220,7 +225,7 @@ TE1000 = class TE1000 extends AView
                 const errorData = this.getLastError();
                 if (errorData.errFlag === "E") {
                     console.log("Error Data:", errorData);
-                    AToast.show('공지사항 삭제 중 에러가 발생했습니다.');
+                    AToast.show('삭제 중 에러가 발생했습니다.');
                     return;
                 }
 
@@ -230,12 +235,11 @@ TE1000 = class TE1000 extends AView
                     return;
                 }
                 if (outblock1[0].success_status !== 'Y') {
-                    AToast.show('공지사항 삭제에 실패했습니다.');
+                    AToast.show('삭제에 실패했습니다.');
                     return;
                 }
-
-                AToast.show('공지사항이 성공적으로 삭제되었습니다.');
-                thisObj.radioGroup.setSelectBtn(thisObj.noticeType0);
+                
+                AToast.show('성공적으로 삭제되었습니다.');
                 thisObj.loadNoticeGrid();
             }
         );
