@@ -10,7 +10,6 @@ TE2000 = class TE2000 extends AView
 	init(context, evtListener)
 	{
 		super.init(context, evtListener)
-
         const today = new Date();
         const startDate = new Date(today.setMonth(today.getMonth() - 2)); // 두 달 전 날짜 계산
         this.startDate.setDate(`${startDate.getFullYear()}${(startDate.getMonth() + 1).toString().padStart(2, '0')}${startDate.getDate().toString().padStart(2, '0')}`);
@@ -54,12 +53,13 @@ TE2000 = class TE2000 extends AView
     // 회원 조회 시 - TE2010
     loadUserGrid(contiKey = '') {
         const thisObj = this;
-        if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
+        if (!contiKey) thisObj.grid.removeAll();    // 그리드 초기화
+        this.acnt_cd = '';                          // 계좌번호 초기화
 
         theApp.qm.sendProcessByName('TE2010', this.getContainerId(), null,
             function(queryData){
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
-                if (inblock1.user_id == "*******") inblock1.user_id = 0;
+                inblock1.user_id = inblock1.user_id === "*******" ? 0 : inblock1.user_id;
                 inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function(queryData){
@@ -134,14 +134,12 @@ TE2000 = class TE2000 extends AView
                 tabGrid.removeAll();
             }
 
-            // 쿼리 전송
             theApp.qm.sendProcessByName(queryMap[tabId], this.getContainerId(), null,
-                function(queryData) { // InBlock 설정
+                function(queryData) { 
                     const inblock1 = queryData.getBlockData('InBlock1')[0];
                     inblock1.acnt_cd = thisObj.acnt_cd;
                 },
-                function(queryData) { // OutBlock 처리
-                    // thisObj.tab.clearTabContent(tabId);
+                function(queryData) { 
                     const errorData = this.getLastError();
                     if (errorData.errFlag === 'E') {
                         console.log('Error Data:', errorData);

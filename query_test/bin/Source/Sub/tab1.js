@@ -39,14 +39,13 @@ tab1 = class tab1 extends AView
         const thisObj = this;
         if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
         
-        // 쿼리 전송
         theApp.qm.sendProcessByName('TE3000', this.getContainerId(), null,
-            function(queryData) { // InBlock 설정
+            function(queryData) { 
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
                 inblock1.acnt_cd = thisObj.acnt_cd;
                 inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
-            function(queryData) { // OutBlock 처리
+            function(queryData) { 
                 const errorData = this.getLastError();
                 if (errorData.errFlag === 'E') {
                     console.log('Error Data:', errorData);
