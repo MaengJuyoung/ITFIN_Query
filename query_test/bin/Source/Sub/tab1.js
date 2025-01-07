@@ -11,9 +11,6 @@ tab1 = class tab1 extends AView
 	init(context, evtListener)
 	{
 		super.init(context, evtListener)
-        this.acnt_cd = this.getContainerView().acnt_cd;
-		//TODO:edit here
-
 	}
 
     onInitDone()
@@ -29,6 +26,7 @@ tab1 = class tab1 extends AView
 
 	onTabInsertBtnClick(comp, info, e)
 	{
+        this.acnt_cd = this.getContainerView().acnt_cd
         this.loadGrid();
 	}
 
@@ -39,7 +37,6 @@ tab1 = class tab1 extends AView
 
     loadGrid(contiKey=''){
         const thisObj = this;
-        const ordAction = thisObj.ordAction.getSelectIndex();
         if (!contiKey) thisObj.grid.removeAll();           // 그리드 초기화
         
         // 쿼리 전송
@@ -47,7 +44,6 @@ tab1 = class tab1 extends AView
             function(queryData) { // InBlock 설정
                 const inblock1 = queryData.getBlockData('InBlock1')[0];
                 inblock1.acnt_cd = thisObj.acnt_cd;
-                inblock1.ord_action = ordAction;
                 inblock1.next_key = contiKey;  // 이전에 가져온 마지막 키를 전달
             },
             function(queryData) { // OutBlock 처리
@@ -57,7 +53,6 @@ tab1 = class tab1 extends AView
                     AToast.show(`${queryName} 실행 중 에러가 발생했습니다.`);
                     return;
                 }
-
                 const outblock1 = queryData.getBlockData('OutBlock1');
                 if (!outblock1 || outblock1.length <= 0) {
                     AToast.show('조회된 데이터가 없습니다.');
